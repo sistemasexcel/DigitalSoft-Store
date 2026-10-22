@@ -1,0 +1,25 @@
+# Carpeta de Imágenes de Productos
+
+Coloca aquí las imágenes oficiales de tus productos en formato `.png`, `.jpg` o `.webp`.
+
+## 📁 Ejemplos de nombres sugeridos:
+- `eset-nod32.png`
+- `office-2024.png`
+- `windows-11-pro.png`
+- `canva-pro.png`
+- `autodesk.png`
+- `capcut.png`
+- `coreldraw.png`
+- `gemini-pro.png`
+
+## ⚙️ Cómo vincularlas en tu catálogo:
+En tu archivo `src/data/products.js`, solo cambia la propiedad `image`:
+
+```javascript
+image: "images/products/eset-nod32.png"
+```
+o
+```javascript
+image: "./images/products/eset-nod32.png"
+```
+Al estar dentro de la carpeta `public/`, Vite y GitHub Pages las cargarán de inmediato sin importar si la página está en local o en internet.

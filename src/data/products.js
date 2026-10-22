@@ -16,7 +16,7 @@ export const PRODUCTS = [
     edition: "Activación Directa (1 Año)",
     shortDescription: "Protección antivirus legendaria, rápida y ultraligera para PC sin ralentizar tu equipo.",
     fullDescription: "Protección antimalware multipremiada de ESET para Windows. Bloquea virus, spyware, troyanos y phishing en tiempo real. Entrega digital garantizada no menor a 360 días de vigencia continua.",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+    image: "./images/products/ESET NOD32.jpg",
     features: [
       "Motor heurístico de detección en tiempo real",
       "Protección contra phishing y sitios fraudulentos",
@@ -81,7 +81,7 @@ export const PRODUCTS = [
     edition: "Home Essential Directa (1 Año)",
     shortDescription: "Seguridad esencial para el hogar: protección bancaria, compras seguras y escudo web.",
     fullDescription: "La nueva generación de seguridad integral para el hogar de ESET. Protege tus operaciones financieras en navegadores blindados, previene ataques por red y salvaguarda tus datos personales.",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
+    image: "./images/products/eset-home-security-essential.jpg",
     features: [
       "Banca y pagos en línea 100% seguros con navegador protegido",
       "Escudo contra ransomware y bloqueo de exploits",
