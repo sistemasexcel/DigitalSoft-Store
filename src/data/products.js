@@ -1,583 +1,1381 @@
 /**
- * Catálogo central de productos digitales.
- *
- * Estructura de campos:
- * - id: Identificador único tipo slug
- * - name: Nombre comercial
- * - brand: Fabricante o desarrollador
- * - category: ID de la categoría (vinculada con CATEGORIES en config.js)
- * - edition: Versión, edición o tipo de release
- * - shortDescription: Resumen breve para tarjetas
- * - fullDescription: Explicación detallada para la vista de producto
- * - image: URL o ruta de la imagen / ilustración técnica
- * - features: Lista de funcionalidades destacadas
- * - licenseType: 'Perpetua (ESD / Retail)', 'Suscripción anual', 'Suscripción mensual', o configurable
- * - duration: Tiempo de validez (ej. 'De por vida', '1 año', 'Configurable')
- * - devices: Número de equipos permitidos (ej. '1 PC / Mac', 'Hasta 5 dispositivos')
- * - compatibility: Sistemas compatibles (ej. 'Windows 10 / 11, macOS')
- * - requirements: Requisitos mínimos o notas de sistema
- * - activationMethod: Instrucciones de activación oficial
- * - pricePEN: Importe numérico en Soles o null si está por cotizar
- * - priceUSD: Importe numérico en Dólares o null si está por cotizar
- * - oldPricePEN: Precio anterior en Soles (para ofertas reales)
- * - oldPriceUSD: Precio anterior en Dólares (para ofertas reales)
- * - promotion: Objeto de promoción o null { title, badge, discountPercent, terms, endDate }
- * - availability: 'Disponible', 'Consultar disponibilidad', 'Bajo pedido'
- * - officialProductUrl: Enlace informativo de referencia
- * - faqs: Preguntas frecuentes específicas del producto
+ * Catálogo central de productos y licencias digitales reales de la tienda.
+ * Estructurado según la lista de precios oficial del comercio.
+ * Los productos con "xx" o sin precio fijo tienen pricePEN: null (se muestran como "Consultar precio").
  */
 
 export const PRODUCTS = [
-  // --- OFICINA Y PRODUCTIVIDAD ---
+  // ==========================================
+  // 1. ANTIVIRUS Y CIBERSEGURIDAD
+  // ==========================================
   {
-    id: "microsoft-office-home-business",
-    name: "Microsoft Office",
-    brand: "Microsoft",
-    category: "oficina-productividad",
-    edition: "Home & Business / Profesional (ESD)",
-    shortDescription: "Suite completa de ofimática para empresas y profesionales independientes con aplicaciones clásicas de escritorio.",
-    fullDescription: "La solución de productividad por excelencia diseñada para profesionales, autónomos y pequeñas empresas que requieren herramientas fiables de escritorio sin tarifas mensuales recurrentes. Incluye las aplicaciones tradicionales que potencian tu flujo de trabajo diario con alta compatibilidad entre documentos.",
-    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
-    features: [
-      "Aplicaciones clásicas de Word, Excel, PowerPoint y Outlook",
-      "Instalación directa en una sola computadora (PC o Mac según la edición)",
-      "Compatibilidad total con documentos estándar .docx, .xlsx y .pptx",
-      "Soporte para trabajo offline sin necesidad de conexión continua",
-      "Actualizaciones de seguridad y estabilidad del fabricante"
-    ],
-    licenseType: "Perpetua (Un solo pago)",
-    duration: "Permanente para el equipo asignado",
-    devices: "1 PC con Windows o 1 Mac (según versión adquirida)",
-    compatibility: "Windows 10, Windows 11 o las tres versiones más recientes de macOS",
-    requirements: "Procesador de 1.6 GHz o más rápido, 4 GB de RAM, 4 GB de espacio disponible en disco",
-    activationMethod: "Canje oficial mediante cuenta asociada en el portal del fabricante o clave digital verificada.",
-    pricePEN: 149.00,
-    priceUSD: 39.00,
-    oldPricePEN: 189.00,
-    oldPriceUSD: 49.00,
-    promotion: {
-      badge: "Más Vendido",
-      title: "Descuento por temporada",
-      terms: "Válido para licencias de activación única en equipos compatibles.",
-      endDate: "30 de Noviembre"
-    },
-    availability: "Disponible",
-    officialProductUrl: "https://www.microsoft.com/es-es/microsoft-365/buy/compare-all-microsoft-365-products",
-    faqs: [
-      {
-        question: "¿Es una suscripción o un pago único?",
-        answer: "Esta edición es de pago único (licencia perpetua), lo que significa que no tendrás cobros mensuales ni anuales por el uso de esa versión."
-      },
-      {
-        question: "¿Puedo transferirla si cambio de computadora?",
-        answer: "Las licencias tipo Retail vinculadas a cuenta permiten ser transferidas a un nuevo equipo desinstalándola previamente del anterior, de acuerdo con las condiciones del fabricante."
-      }
-    ]
-  },
-  {
-    id: "microsoft-365-personal-family",
-    name: "Microsoft 365",
-    brand: "Microsoft",
-    category: "oficina-productividad",
-    edition: "Personal / Familia (Suscripción)",
-    shortDescription: "La suite en la nube con las versiones más actualizadas, almacenamiento OneDrive y aplicaciones colaborativas.",
-    fullDescription: "Accede a las aplicaciones premium de productividad siempre actualizadas con las últimas funciones de inteligencia artificial, plantillas avanzadas y 1 TB de almacenamiento seguro en la nube por usuario. Ideal para usuarios que trabajan desde múltiples dispositivos (computadora, tablet y smartphone).",
-    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
-    features: [
-      "Versiones prémium y siempre actualizadas de Word, Excel, PowerPoint y OneNote",
-      "1 TB de almacenamiento en la nube de OneDrive con seguridad de detección de ransomware",
-      "Uso en múltiples dispositivos simultáneamente (PC, Mac, iPhone, iPad y Android)",
-      "Funciones de edición inteligente con Microsoft Editor y diseñador impulsado por IA",
-      "Soporte técnico continuo mientras la suscripción esté activa"
-    ],
-    licenseType: "Suscripción anual o mensual",
-    duration: "1 año (renovable)",
-    devices: "Hasta 5 dispositivos en simultáneo por cuenta",
-    compatibility: "Windows, macOS, iOS y Android",
-    requirements: "Conexión a internet para activación, descarga e inicio periódico de sesión",
-    activationMethod: "Activación en la cuenta oficial del usuario a través de enlace o código de suscripción.",
-    pricePEN: 199.00,
-    priceUSD: 52.00,
-    oldPricePEN: null,
-    oldPriceUSD: null,
-    promotion: null,
-    availability: "Disponible",
-    officialProductUrl: "https://www.microsoft.com/es-es/microsoft-365",
-    faqs: [
-      {
-        question: "¿Qué ocurre con mis archivos si no renuevo la suscripción?",
-        answer: "Tus archivos permanecen en OneDrive en modo de solo lectura para que puedas descargarlos o respaldarlos sin riesgo de pérdida inmediata."
-      }
-    ]
-  },
-
-  // --- SISTEMAS OPERATIVOS ---
-  {
-    id: "windows-11-pro",
-    name: "Windows 11 Pro",
-    brand: "Microsoft",
-    category: "sistemas-operativos",
-    edition: "Professional 64-bit (ESD / OEM / Retail)",
-    shortDescription: "El sistema operativo moderno y seguro para entornos de trabajo, productividad empresarial y gaming avanzado.",
-    fullDescription: "Windows 11 Pro ofrece un espacio moderno y creativo donde perseguir tus pasiones en un entorno renovado. Incluye herramientas avanzadas para empresas como cifrado de dispositivos BitLocker, virtualización Hyper-V, acceso a escritorio remoto y políticas de grupo para entornos corporativos.",
-    image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=800&q=80",
-    features: [
-      "Cifrado de disco completo con BitLocker para máxima seguridad corporativa",
-      "Integración de Windows Copilot y multitarea con diseños de acoplamiento (Snap Layouts)",
-      "Soporte para Escritorio Remoto nativo para conectarte desde cualquier lugar",
-      "Sandboxing de Windows y Hyper-V para ejecución segura y virtualización",
-      "Compatibilidad con hardware moderno de última generación y DirectStorage"
-    ],
-    licenseType: "Digital ESD / Retail",
-    duration: "De por vida para la placa madre del equipo",
-    devices: "1 PC",
-    compatibility: "Equipos compatibles con requisitos de Windows 11 (TPM 2.0 y Secure Boot)",
-    requirements: "Procesador de 1 GHz o más rápido con 2 o más núcleos en procesador de 64 bits compatible, 4 GB RAM, 64 GB almacenamiento, UEFI con inicio seguro y TPM 2.0",
-    activationMethod: "Clave digital alfanumérica de 25 caracteres para canje en Configuración > Sistema > Activación.",
-    pricePEN: 79.00,
-    priceUSD: 21.00,
-    oldPricePEN: 99.00,
-    oldPriceUSD: 26.00,
-    promotion: {
-      badge: "Oferta Destacada",
-      title: "Actualización a Windows 11",
-      terms: "Licencia individual legítima para instalación limpia o actualización desde Win 10/11 Home.",
-      endDate: "Hasta agotar cupos"
-    },
-    availability: "Disponible",
-    officialProductUrl: "https://www.microsoft.com/es-es/windows/windows-11-pro",
-    faqs: [
-      {
-        question: "¿Sirve para actualizar desde Windows 11 Home?",
-        answer: "Sí, puedes ingresar la clave de Windows 11 Pro directamente en tu sistema Windows 11 Home y el sistema desbloqueará las funciones avanzadas sin formatear."
-      },
-      {
-        question: "¿La clave expira en algún momento?",
-        answer: "No, las licencias perpetuas de sistema operativo no tienen fecha de vencimiento."
-      }
-    ]
-  },
-  {
-    id: "windows-11-home",
-    name: "Windows 11 Home",
-    brand: "Microsoft",
-    category: "sistemas-operativos",
-    edition: "Home 64-bit",
-    shortDescription: "Sistema operativo ágil, intuitivo y optimizado para el hogar, estudiantes y creadores de contenido.",
-    fullDescription: "Diseñado para el uso personal diario, navegación rápida, streaming en alta definición y videojuegos de última generación con soporte para Auto HDR y DirectX 12 Ultimate.",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
-    features: [
-      "Interfaz moderna centrada con navegación simplificada",
-      "Control parental y funciones de bienestar digital",
-      "Optimizaciones para gaming con soporte Auto HDR y Xbox Game Bar",
-      "Seguridad integrada de Windows Defender sin costos adicionales",
-      "Asistente Copilot para responder preguntas y automatizar tareas"
-    ],
-    licenseType: "Digital ESD",
-    duration: "De por vida",
-    devices: "1 PC",
-    compatibility: "PC compatible con especificaciones de Windows 11",
-    requirements: "CPU 64-bit compatible, 4 GB RAM, 64 GB disco, TPM 2.0 habilitado",
-    activationMethod: "Activación directa en línea mediante clave de producto legítima.",
-    pricePEN: 69.00,
-    priceUSD: 18.00,
-    oldPricePEN: null,
-    oldPriceUSD: null,
-    promotion: null,
-    availability: "Disponible",
-    officialProductUrl: "https://www.microsoft.com/es-es/windows/windows-11",
-    faqs: [
-      {
-        question: "¿Qué diferencia tiene con Windows 11 Pro?",
-        answer: "La versión Home está pensada para uso personal; no incluye BitLocker ni la unión a dominios de red de empresas ni escritorio remoto de recepción."
-      }
-    ]
-  },
-
-  // --- ANTIVIRUS Y SEGURIDAD ---
-  {
-    id: "eset-internet-security",
-    name: "ESET Internet Security",
+    id: "eset-nod32-antivirus-directa",
+    name: "ESET NOD32 Antivirus",
     brand: "ESET",
     category: "antivirus-seguridad",
-    edition: "Multi-Device Security",
-    shortDescription: "Protección integral legendaria, ultraligera y confiable para tus operaciones bancarias y navegación diaria.",
-    fullDescription: "Protege tu vida digital con la galardonada tecnología de ciberseguridad europea de ESET. Su motor de detección heurística multipremiado ofrece protección contra ransomware, protección para banca y pagos en línea, y un escudo antispam con un impacto mínimo en los recursos de tu ordenador.",
+    edition: "Activación Directa (1 Año)",
+    shortDescription: "Protección antivirus legendaria, rápida y ultraligera para PC sin ralentizar tu equipo.",
+    fullDescription: "Protección antimalware multipremiada de ESET para Windows. Bloquea virus, spyware, troyanos y phishing en tiempo real. Entrega digital garantizada no menor a 360 días de vigencia continua.",
     image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
     features: [
-      "Protección para banca y compras online con navegador protegido",
-      "Escudo contra ransomware y bloqueo de exploits en tiempo real",
-      "Firewall inteligente y protección de red doméstica e IoT",
-      "Consumo mínimo de memoria RAM y CPU; ideal para gamers y profesionales",
-      "Soporte multiplataforma para Windows, macOS y Android"
+      "Motor heurístico de detección en tiempo real",
+      "Protección contra phishing y sitios fraudulentos",
+      "Modo gamer automático que suspende avisos y ahorra recursos",
+      "Vigencia garantizada no menor a 360 días",
+      "Consumo mínimo de memoria RAM y procesador"
     ],
-    licenseType: "Suscripción oficial",
-    duration: "1 año de protección continua",
-    devices: "1 Dispositivo (Opciones para 3 y 5 dispositivos a consultar)",
-    compatibility: "Windows 10/11, macOS 12+, Android 8.0+",
-    requirements: "Conexión a internet estable para actualizaciones diarias de firmas",
-    activationMethod: "Registro de clave de licencia en la aplicación oficial o portal ESET HOME.",
-    pricePEN: 65.00,
-    priceUSD: 17.50,
-    oldPricePEN: 85.00,
-    oldPriceUSD: 23.00,
+    licenseType: "Suscripción Digital (Activación Directa)",
+    duration: "1 Año (no menor a 360 días)",
+    devices: "1 PC",
+    compatibility: "Windows 11, 10, 8.1",
+    requirements: "Conexión a internet para actualizaciones de base de firmas",
+    activationMethod: "Activación directa en software oficial ESET NOD32.",
+    pricePEN: 14.00,
+    priceUSD: 3.80,
+    oldPricePEN: 20.00,
+    oldPriceUSD: 5.50,
     promotion: {
-      badge: "Recomendado",
-      title: "Protección Total para PC",
-      terms: "Licencia original garantizada con soporte de activación.",
-      endDate: "Disponible hasta fin de mes"
+      badge: "Súper Precio",
+      title: "Activación Directa",
+      terms: "Licencia individual no menor a 360 días.",
+      endDate: "Disponible"
     },
     availability: "Disponible",
-    officialProductUrl: "https://www.eset.com/es/hogar/internet-security/",
-    faqs: [
-      {
-        question: "¿Ralentiza la computadora al jugar o trabajar?",
-        answer: "ESET es mundialmente reconocido por su huella mínima en el rendimiento del equipo, incluyendo un modo juego automático que suspende notificaciones."
-      }
-    ]
+    officialProductUrl: "https://www.eset.com/es/hogar/nod32-antivirus/",
+    faqs: []
   },
   {
-    id: "kaspersky-standard",
-    name: "Kaspersky Standard",
-    brand: "Kaspersky",
+    id: "eset-nod32-vpn",
+    name: "ESET NOD32 Antivirus + VPN",
+    brand: "ESET",
     category: "antivirus-seguridad",
-    edition: "Security Suite",
-    shortDescription: "Seguridad esencial contra virus, spyware, phishing y herramientas para mejorar el rendimiento del equipo.",
-    fullDescription: "El plan de seguridad básico de Kaspersky combina tecnología galardonada de antivirus y optimización de rendimiento para mantener tus equipos veloces y a salvo de ataques modernos de phishing y filtración de contraseñas.",
+    edition: "Con VPN Incluida (1 Año)",
+    shortDescription: "Protección completa NOD32 complementada con red privada virtual (VPN) para navegación segura.",
+    fullDescription: "Combina la protección ligera y proactiva de NOD32 con cifrado de conexión VPN para navegar con anonimato y proteger tus transacciones en redes Wi-Fi públicas.",
+    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Protección antivirus proactiva NOD32",
+      "Navegación cifrada mediante VPN",
+      "Protección de contraseñas y privacidad web"
+    ],
+    licenseType: "Suscripción Digital",
+    duration: "1 Año (no menor a 360 días)",
+    devices: "1 PC",
+    compatibility: "Windows 11, 10",
+    requirements: "Internet para actualizaciones",
+    activationMethod: "Activación en el software oficial.",
+    pricePEN: null,
+    priceUSD: null,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: null,
+    availability: "Consultar disponibilidad",
+    officialProductUrl: "https://www.eset.com/es/",
+    faqs: []
+  },
+  {
+    id: "eset-home-security-essential",
+    name: "ESET Home Security Essential",
+    brand: "ESET",
+    category: "antivirus-seguridad",
+    edition: "Home Essential Directa (1 Año)",
+    shortDescription: "Seguridad esencial para el hogar: protección bancaria, compras seguras y escudo web.",
+    fullDescription: "La nueva generación de seguridad integral para el hogar de ESET. Protege tus operaciones financieras en navegadores blindados, previene ataques por red y salvaguarda tus datos personales.",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Banca y pagos en línea 100% seguros con navegador protegido",
+      "Escudo contra ransomware y bloqueo de exploits",
+      "Protección de red Wi-Fi doméstica",
+      "Vigencia garantizada no menor a 360 días"
+    ],
+    licenseType: "Suscripción Digital (Activación Directa)",
+    duration: "1 Año (no menor a 360 días)",
+    devices: "1 PC / Dispositivo",
+    compatibility: "Windows, macOS, Android",
+    requirements: "Conexión a internet",
+    activationMethod: "Activación directa en software ESET.",
+    pricePEN: 17.00,
+    priceUSD: 4.60,
+    oldPricePEN: 25.00,
+    oldPriceUSD: 6.80,
+    promotion: {
+      badge: "Recomendado",
+      title: "Seguridad Bancaria",
+      terms: "No menor a 360 días garantizados.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.eset.com/es/hogar/home-security-essential/",
+    faqs: []
+  },
+  {
+    id: "eset-home-security-premium",
+    name: "ESET Home Security Premium",
+    brand: "ESET",
+    category: "antivirus-seguridad",
+    edition: "Home Premium Directa (1 Año)",
+    shortDescription: "Seguridad avanzada con gestor de contraseñas integrado y cifrado militar de carpetas.",
+    fullDescription: "Todo el poder de ESET con herramientas de máxima privacidad: Password Manager para generar y almacenar claves complejas, y cifrado seguro de archivos y discos duros externos.",
+    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Gestor de contraseñas ultra seguro (Password Manager)",
+      "Cifrado de archivos y memorias USB",
+      "Protección bancaria y navegación privada",
+      "Garantía de entrega no menor a 360 días"
+    ],
+    licenseType: "Suscripción Digital Directa",
+    duration: "1 Año (no menor a 360 días)",
+    devices: "1 PC",
+    compatibility: "Windows, macOS, Android",
+    requirements: "Conexión a internet",
+    activationMethod: "Activación directa en la aplicación oficial.",
+    pricePEN: 23.00,
+    priceUSD: 6.20,
+    oldPricePEN: 32.00,
+    oldPriceUSD: 8.50,
+    promotion: {
+      badge: "Más Completo",
+      title: "Protección Premium con Gestor de Claves",
+      terms: "Entrega digital inmediata.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.eset.com/es/hogar/home-security-premium/",
+    faqs: []
+  },
+  {
+    id: "eset-home-security-ultimate",
+    name: "ESET Home Security Ultimate",
+    brand: "ESET",
+    category: "antivirus-seguridad",
+    edition: "Ultimate Edition (1 Año)",
+    shortDescription: "La suite definitiva con VPN ilimitada, protección de identidad y metadatos limpios.",
+    fullDescription: "Máxima expresión de ciberseguridad doméstica con VPN ilimitada, limpieza de metadatos de fotos y escudo contra robo de identidad digital.",
     image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
     features: [
-      "Antivirus en tiempo real y detección proactiva de malware",
-      "Protección contra phishing y páginas web fraudulentas",
-      "Herramientas de limpieza y puesta a punto del sistema",
-      "Protección de pagos y transacciones bancarias",
-      "Bloqueador de anuncios maliciosos y rastreo digital"
+      "VPN ilimitada de alta velocidad",
+      "Limpieza de metadatos y privacidad total",
+      "Todas las características de Premium y Essential"
     ],
-    licenseType: "Suscripción anual",
-    duration: "1 año",
-    devices: "1 Dispositivo (PC / Mac / Android)",
-    compatibility: "Windows 11 / 10, macOS 11+, Android 5.0+",
-    requirements: "2.7 GB de espacio en disco, procesador de 1 GHz, 2 GB RAM",
-    activationMethod: "Canje en el software oficial ingresando el código de activación alfanumérico.",
-    pricePEN: 59.00,
+    licenseType: "Suscripción Digital",
+    duration: "1 Año",
+    devices: "1 PC / Multidispositivo",
+    compatibility: "Windows, macOS, Android, iOS",
+    requirements: "Conexión a internet",
+    activationMethod: "Activación en portal ESET HOME.",
+    pricePEN: null,
+    priceUSD: null,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: null,
+    availability: "Consultar disponibilidad",
+    officialProductUrl: "https://www.eset.com/es/hogar/home-security-ultimate/",
+    faqs: []
+  },
+  {
+    id: "paneles-eset-administrable",
+    name: "Paneles ESET Administrables",
+    brand: "ESET",
+    category: "software-empresarial",
+    edition: "Panel Administrable para Distribuidores / Empresas",
+    shortDescription: "Control centralizado de activaciones y licencias para negocios, técnicos o distribuidores.",
+    fullDescription: "Panel administrativo oficial de ESET que permite gestionar, emitir y supervisar múltiples claves de activación desde una consola centralizada.",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Gestión centralizada de licencias",
+      "Generación y asignación de puestos",
+      "Ideal para técnicos de soporte y empresas",
+      "Precios especiales por volumen"
+    ],
+    licenseType: "Panel de Gestión Oficial",
+    duration: "Configurable",
+    devices: "Multi-usuario",
+    compatibility: "Consola Web",
+    requirements: "Acceso web",
+    activationMethod: "Entrega de credenciales de panel oficial.",
+    pricePEN: 75.00,
+    priceUSD: 20.00,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: {
+      badge: "Empresarial / Mayorista",
+      title: "Precio Base de Panel",
+      terms: "Desde S/ 75 según cantidad de licencias requeridas.",
+      endDate: "Válido"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.eset.com/",
+    faqs: []
+  },
+  {
+    id: "eset-file-server-security",
+    name: "ESET File Server Security",
+    brand: "ESET",
+    category: "software-empresarial",
+    edition: "Server Edition (1 Año)",
+    shortDescription: "Protección especializada de alto rendimiento para servidores de archivos Windows Server.",
+    fullDescription: "Seguridad dedicada para servidores que optimiza el tráfico de red y almacenamiento compartido sin degradar la velocidad de transferencia entre puestos de trabajo.",
+    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Optimizado para Windows Server",
+      "Protección de recursos compartidos en red",
+      "No menor a 360 días de vigencia"
+    ],
+    licenseType: "Suscripción para Servidor",
+    duration: "1 Año (no menor a 360 días)",
+    devices: "1 Servidor",
+    compatibility: "Windows Server 2022, 2019, 2016, 2012 R2",
+    requirements: "Servidor con conexión de red",
+    activationMethod: "Activación directa en consola de servidor.",
+    pricePEN: 60.00,
     priceUSD: 16.00,
     oldPricePEN: null,
     oldPriceUSD: null,
     promotion: null,
     availability: "Disponible",
-    officialProductUrl: "https://www.kaspersky.es/standard",
-    faqs: [
-      {
-        question: "¿Cómo se activa la licencia?",
-        answer: "Instalas la versión oficial desde el portal del fabricante e introduces el código digital provisto en la sección de activación."
-      }
-    ]
+    officialProductUrl: "https://www.eset.com/es/empresas/",
+    faqs: []
   },
   {
-    id: "bitdefender-total-security",
+    id: "mcafee-internet-security",
+    name: "McAfee Internet Security",
+    brand: "McAfee",
+    category: "antivirus-seguridad",
+    edition: "1 Año / 1 PC",
+    shortDescription: "Protección integral contra virus, sitios web maliciosos y optimización de PC.",
+    fullDescription: "Protege tu equipo y privacidad digital con la tecnología galardonada de McAfee. Escudo antispam, cortafuegos personal y protección web WebAdvisor.",
+    image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Antivirus y antispyware en tiempo real",
+      "McAfee WebAdvisor para advertir sobre enlaces peligrosos",
+      "Cortafuegos bidireccional",
+      "No menor a 360 días de vigencia garantizada"
+    ],
+    licenseType: "Suscripción Digital",
+    duration: "1 Año (no menor a 360 días)",
+    devices: "1 PC",
+    compatibility: "Windows 11, 10",
+    requirements: "Conexión a internet",
+    activationMethod: "Activación en sitio oficial mcafee.com/activate con código digital.",
+    pricePEN: 16.00,
+    priceUSD: 4.30,
+    oldPricePEN: 25.00,
+    oldPriceUSD: 6.80,
+    promotion: null,
+    availability: "Disponible",
+    officialProductUrl: "https://www.mcafee.com/",
+    faqs: []
+  },
+  {
+    id: "kaspersky-standard-1y",
+    name: "Kaspersky Standard",
+    brand: "Kaspersky",
+    category: "antivirus-seguridad",
+    edition: "Security Suite (1 Año)",
+    shortDescription: "Seguridad esencial contra malware y optimización de velocidad de tu PC.",
+    fullDescription: "Combina antivirus proactivo, protección contra phishing y herramientas de limpieza para mantener tu computadora ágil y protegida.",
+    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Detección y bloqueo de malware en tiempo real",
+      "Protección de transacciones bancarias",
+      "Eliminación de archivos basura",
+      "Vigencia no menor a 360 días"
+    ],
+    licenseType: "Suscripción Digital",
+    duration: "1 Año (no menor a 360 días)",
+    devices: "1 Dispositivo",
+    compatibility: "Windows, macOS, Android",
+    requirements: "Conexión a internet",
+    activationMethod: "Activación mediante código en portal My Kaspersky o aplicación.",
+    pricePEN: 20.00,
+    priceUSD: 5.40,
+    oldPricePEN: 30.00,
+    oldPriceUSD: 8.00,
+    promotion: null,
+    availability: "Disponible",
+    officialProductUrl: "https://www.kaspersky.es/",
+    faqs: []
+  },
+  {
+    id: "kaspersky-premium-1y",
+    name: "Kaspersky Premium",
+    brand: "Kaspersky",
+    category: "antivirus-seguridad",
+    edition: "Premium Edition (1 Año)",
+    shortDescription: "Protección máxima con soporte prioritario, protección de identidad y VPN rápida.",
+    fullDescription: "La versión más avanzada de Kaspersky: incluye todas las funciones de seguridad, soporte técnico especializado, monitoreo de redes Wi-Fi y protección contra robo de identidad.",
+    image: "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "VPN rápida e ilimitada",
+      "Gestor de contraseñas de alta seguridad",
+      "Monitoreo de filtración de datos en tiempo real",
+      "Vigencia garantizada no menor a 360 días"
+    ],
+    licenseType: "Suscripción Digital",
+    duration: "1 Año (no menor a 360 días)",
+    devices: "1 PC / Dispositivo",
+    compatibility: "Windows, macOS, Android, iOS",
+    requirements: "Conexión a internet",
+    activationMethod: "Activación en cuenta My Kaspersky.",
+    pricePEN: 25.00,
+    priceUSD: 6.80,
+    oldPricePEN: 35.00,
+    oldPriceUSD: 9.50,
+    promotion: null,
+    availability: "Disponible",
+    officialProductUrl: "https://www.kaspersky.es/",
+    faqs: []
+  },
+  {
+    id: "bitdefender-antivirus-plus",
+    name: "Bitdefender Antivirus Plus",
+    brand: "Bitdefender",
+    category: "antivirus-seguridad",
+    edition: "Antivirus Plus (1 Año)",
+    shortDescription: "Protección básica multipremiada contra virus y ransomware en Windows.",
+    fullDescription: "Protege tu PC con la tecnología de detección líder en pruebas independientes de ciberseguridad.",
+    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=800&q=80",
+    features: ["Protección en tiempo real", "Escudo contra ransomware", "Navegador de compras seguro"],
+    licenseType: "Suscripción Digital",
+    duration: "1 Año",
+    devices: "1 PC",
+    compatibility: "Windows 11, 10",
+    requirements: "Internet",
+    activationMethod: "Central Bitdefender",
+    pricePEN: null,
+    priceUSD: null,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: null,
+    availability: "Consultar disponibilidad",
+    officialProductUrl: "https://www.bitdefender.es/",
+    faqs: []
+  },
+  {
+    id: "bitdefender-total-security-custom",
     name: "Bitdefender Total Security",
     brand: "Bitdefender",
     category: "antivirus-seguridad",
-    edition: "Total Security Multi-Device",
-    shortDescription: "Protección máxima 4 en 1 para Windows, macOS, iOS y Android con mínimo impacto en la batería.",
-    fullDescription: "Bitdefender Total Security te brinda la mejor protección contra amenazas de internet en los principales sistemas operativos sin ralentizar tus dispositivos. Incluye herramientas completas de privacidad, control parental y VPN básica.",
+    edition: "Total Security (1 Año)",
+    shortDescription: "Seguridad integral 4 en 1 para Windows, Mac, Android e iOS.",
+    fullDescription: "La suite más completa de Bitdefender para todos los dispositivos de la familia.",
     image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=800&q=80",
-    features: [
-      "Protección completa e impecable contra amenazas digitales",
-      "Protección multicapa contra ransomware para mantener tus archivos a salvo",
-      "Control parental para vigilar las actividades de menores en línea",
-      "Herramientas antirrobo y de privacidad para dispositivos móviles",
-      "Optimizador de rendimiento con un solo clic"
-    ],
-    licenseType: "Suscripción anual",
-    duration: "1 año",
-    devices: "Hasta 3 o 5 dispositivos",
-    compatibility: "Windows, macOS, iOS, Android",
-    requirements: "Conexión a internet y cuenta Bitdefender Central",
-    activationMethod: "Activación en el portal Bitdefender Central mediante código de suscripción.",
-    pricePEN: 85.00,
-    priceUSD: 23.00,
-    oldPricePEN: 110.00,
-    oldPriceUSD: 29.00,
-    promotion: {
-      badge: "Oferta Familiar",
-      title: "Protección Integral Multidispositivo",
-      terms: "Válido para renovaciones o cuentas nuevas en Bitdefender Central.",
-      endDate: "Hasta fin de existencias"
-    },
-    availability: "Disponible",
-    officialProductUrl: "https://www.bitdefender.es/solutions/total-security.html",
-    faqs: []
-  },
-  {
-    id: "norton-360-deluxe",
-    name: "Norton 360",
-    brand: "NortonLifeLock",
-    category: "antivirus-seguridad",
-    edition: "Deluxe Multi-Device",
-    shortDescription: "Múltiples capas de protección para tus dispositivos, privacidad en línea con Secure VPN y copia de seguridad en la nube.",
-    fullDescription: "Norton 360 Deluxe proporciona una potente protección para tus dispositivos móviles y ordenadores frente a virus, malware y amenazas en internet, complementado con copia de seguridad para PC en la nube y gestor de contraseñas.",
-    image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=800&q=80",
-    features: [
-      "Seguridad del dispositivo contra malware y spywares",
-      "Secure VPN para navegar de manera privada y anónima en redes Wi-Fi públicas",
-      "50 GB de almacenamiento para copia de seguridad segura de PC en la nube",
-      "Gestor de contraseñas integrado para generar y almacenar credenciales",
-      "SafeCam para PC que avisa sobre accesos no autorizados a tu cámara"
-    ],
-    licenseType: "Suscripción anual",
-    duration: "1 año",
-    devices: "Hasta 3 o 5 dispositivos",
+    features: ["Control parental", "Optimizador de rendimiento", "Multiplataforma"],
+    licenseType: "Suscripción Digital",
+    duration: "1 Año",
+    devices: "1 PC o Multidispositivo",
     compatibility: "Windows, macOS, Android, iOS",
-    requirements: "Cuenta Norton y conexión permanente a internet",
-    activationMethod: "Activación directa en my.norton.com con clave de producto.",
-    pricePEN: 79.00,
-    priceUSD: 21.00,
-    oldPricePEN: null,
-    oldPriceUSD: null,
-    promotion: null,
-    availability: "Disponible",
-    officialProductUrl: "https://es.norton.com/products/norton-360-deluxe",
-    faqs: []
-  },
-
-  // --- HERRAMIENTAS PDF Y DISEÑO ---
-  {
-    id: "adobe-acrobat-pro",
-    name: "Adobe Acrobat Pro",
-    brand: "Adobe",
-    category: "herramientas-pdf",
-    edition: "Document Cloud (Consultar opciones de plan)",
-    shortDescription: "El estándar de oro para crear, convertir, firmar, proteger y editar documentos PDF en cualquier plataforma.",
-    fullDescription: "La solución de PDF integral más avanzada del mundo. Te permite transformar documentos escaneados en archivos editables con reconocimiento óptico de caracteres (OCR), combinar múltiples tipos de archivo, solicitar firmas digitales legalmente vinculantes y proteger datos sensibles.",
-    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80",
-    features: [
-      "Edición completa de texto e imágenes dentro de archivos PDF",
-      "Conversión impecable de PDF a Word, Excel, PowerPoint y viceversa",
-      "Reconocimiento óptico de caracteres (OCR) de alta precisión en más de 20 idiomas",
-      "Firma electrónica segura y seguimiento de solicitudes de firma",
-      "Cifrado y protección con contraseñas de alta seguridad"
-    ],
-    licenseType: "Suscripción oficial de fabricante",
-    duration: "Configurable según el plan solicitado",
-    devices: "PC / Mac y aplicaciones móviles",
-    compatibility: "Windows 10/11, macOS v11 o superior",
-    requirements: "Procesador Intel o AMD compatible de 1.5 GHz, 2 GB RAM, 4.5 GB espacio en disco",
-    activationMethod: "Vía cuenta Adobe ID autorizada según los términos vigentes.",
-    pricePEN: null, // Sin precio fijo establecido para obligar a consultar
+    requirements: "Cuenta Bitdefender Central",
+    activationMethod: "Canje en central.bitdefender.com",
+    pricePEN: null,
     priceUSD: null,
     oldPricePEN: null,
     oldPriceUSD: null,
     promotion: null,
     availability: "Consultar disponibilidad",
-    officialProductUrl: "https://www.adobe.com/es/acrobat/acrobat-pro.html",
-    faqs: [
-      {
-        question: "¿Por qué figura 'Consultar precio'?",
-        answer: "Debido a las variaciones de planes de suscripción de Adobe y disponibilidad según el tipo de usuario (educativo, profesional o empresarial), cotizamos el plan a medida vía WhatsApp."
-      }
-    ]
+    officialProductUrl: "https://www.bitdefender.es/",
+    faqs: []
   },
   {
-    id: "wondershare-pdfelement",
-    name: "PDFelement Pro",
-    brand: "Wondershare",
-    category: "herramientas-pdf",
-    edition: "Professional Edition",
-    shortDescription: "La alternativa robusta, intuitiva y accesible para leer, editar, anotar y convertir documentos PDF.",
-    fullDescription: "Una de las herramientas más elogiadas para gestión integral de PDFs. Con interfaz limpia similar a las aplicaciones de oficina, facilita la edición fluida de textos, formularios interactivos y compresión de archivos pesados.",
-    image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+    id: "avast-premium-security",
+    name: "Avast Premium Security",
+    brand: "Avast",
+    category: "antivirus-seguridad",
+    edition: "Premium Security (1 Año)",
+    shortDescription: "Seguridad completa contra sitios falsificados, ransomware y ataques a cámaras web.",
+    fullDescription: "La solución premium de Avast con cortafuegos avanzado y protección de compras bancarias.",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
     features: [
-      "Edición visual de texto, imágenes y páginas en PDF",
-      "Conversor por lotes ultrarrápido a múltiples formatos",
-      "Reconocimiento OCR para digitalizar documentos físicos",
-      "Creación y rellenado de formularios interactivos",
-      "Reducción y compresión de peso de archivos sin perder calidad"
+      "Protección contra páginas falsificadas y phishing",
+      "Escudo para cámaras web para evitar espionaje",
+      "Vigencia garantizada no menor a 360 días"
     ],
-    licenseType: "Licencia perpetua o suscripción",
-    duration: "De por vida (versión mayor) o 1 año",
-    devices: "1 Equipo",
-    compatibility: "Windows 11 / 10 / 8.1, macOS 10.15+",
-    requirements: "1 GHz procesador, 512 MB RAM, 500 MB espacio en disco",
-    activationMethod: "Registro de cuenta en Wondershare con código de producto.",
-    pricePEN: 129.00,
-    priceUSD: 34.00,
-    oldPricePEN: 159.00,
-    oldPriceUSD: 42.00,
+    licenseType: "Suscripción Digital",
+    duration: "1 Año (no menor a 360 días)",
+    devices: "1 PC",
+    compatibility: "Windows 11 / 10",
+    requirements: "Conexión a internet",
+    activationMethod: "Canje en software Avast.",
+    pricePEN: 20.00,
+    priceUSD: 5.40,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: null,
+    availability: "Disponible",
+    officialProductUrl: "https://www.avast.com/es-es/",
+    faqs: []
+  },
+  {
+    id: "avast-ultimate-suite",
+    name: "Avast Ultimate Suite",
+    brand: "Avast",
+    category: "antivirus-seguridad",
+    edition: "Ultimate All-in-One (1 Año)",
+    shortDescription: "Suite completa 4 en 1: Antivirus Premium + SecureLine VPN + Cleanup Premium + AntiTrack.",
+    fullDescription: "Todo en un solo paquete: antivirus avanzado, VPN ilimitada para privacidad total, herramienta de aceleración de PC y bloqueo de rastreadores.",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Avast Premium Security incluido",
+      "Avast SecureLine VPN ilimitada",
+      "Avast Cleanup Premium para optimizar tu PC",
+      "Avast AntiTrack contra rastreo de anunciantes"
+    ],
+    licenseType: "Suscripción Digital All-in-One",
+    duration: "1 Año (no menor a 360 días)",
+    devices: "1 PC",
+    compatibility: "Windows 11 / 10",
+    requirements: "Conexión a internet",
+    activationMethod: "Código de activación oficial.",
+    pricePEN: 30.00,
+    priceUSD: 8.00,
+    oldPricePEN: 45.00,
+    oldPriceUSD: 12.00,
     promotion: {
-      badge: "Alternativa Recomendada",
-      title: "Calidad profesional a menor costo",
-      terms: "Licencia válida para uso en 1 computador personal o de trabajo.",
+      badge: "Combo 4 en 1",
+      title: "Suite de Seguridad y Limpieza",
+      terms: "Incluye VPN y optimizador de PC.",
+      endDate: "Válido"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.avast.com/es-es/",
+    faqs: []
+  },
+
+  // ==========================================
+  // 2. MICROSOFT OFFICE PERMANENTE & 365
+  // ==========================================
+  {
+    id: "office-pro-plus-phone-manual",
+    name: "Office Professional Plus 2016 / 2019 / 2021",
+    brand: "Microsoft",
+    category: "oficina-productividad",
+    edition: "Por Teléfono Manual (Solo Expertos)",
+    shortDescription: "Licencia permanente económica activable mediante llamada al sistema telefónico de Microsoft.",
+    fullDescription: "Licencia perpetua de Office (Word, Excel, PowerPoint, Outlook, Access y Publisher). Se activa llamando directamente a la central de Microsoft para obtener el ID de confirmación. Precio especial de S/ 4 a partir de 2 unidades.",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Word, Excel, PowerPoint, Outlook, OneNote, Access y Publisher",
+      "Licencia permanente de por vida",
+      "Activación por llamada manual telefónica a Microsoft",
+      "Precio: S/ 4 c/u (a partir de 2 unidades)"
+    ],
+    licenseType: "Perpetua (Activación Telefónica)",
+    duration: "De por vida en el equipo instalado",
+    devices: "1 PC",
+    compatibility: "Windows 10, Windows 11",
+    requirements: "Windows 10/11",
+    activationMethod: "Se introduce la clave en Office y se llama a la línea gratuita de Microsoft para confirmar.",
+    pricePEN: 4.00,
+    priceUSD: 1.10,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: {
+      badge: "Mayorista (Min. 2u)",
+      title: "Para Técnicos y Expertos",
+      terms: "A partir de 2 unidades. Requiere activación telefónica.",
       endDate: "Vigente"
     },
     availability: "Disponible",
-    officialProductUrl: "https://pdf.wondershare.es/",
+    officialProductUrl: "https://www.microsoft.com/",
     faqs: []
   },
   {
-    id: "coreldraw-graphics-suite",
-    name: "CorelDRAW Graphics Suite",
-    brand: "Corel / Alludo",
-    category: "diseno-edicion",
-    edition: "Commercial / Standard",
-    shortDescription: "Suite profesional de ilustración vectorial, diseño editorial, maquetación y tipografía para creativos.",
-    fullDescription: "Diseñada para diseñadores gráficos, profesionales de rotulación e imprenta. Proporciona herramientas potentes para ilustración de vectores, edición de fotos y preparación de artes finales para impresión de gran formato.",
-    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80",
+    id: "office-pro-plus-getcid",
+    name: "Office Professional Plus 2016 / 2019 / 2021",
+    brand: "Microsoft",
+    category: "oficina-productividad",
+    edition: "Vía GetCID (Activación Rápida Asistida)",
+    shortDescription: "La opción más recomendada: activación rápida y automática mediante nuestro sistema GetCID sin llamadas.",
+    fullDescription: "Suite completa Office Pro Plus para 1 PC. A diferencia del método telefónico manual, se utiliza nuestro sistema automatizado GetCID para activar en cuestión de segundos sin tener que llamar por teléfono.",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
     features: [
-      "Ilustración vectorial avanzada y trazado de mapas de bits a vectores con IA",
-      "Herramientas avanzadas de tipografía y maquetación para catálogos y folletos",
-      "Edición no destructiva de fotografías con Corel PHOTO-PAINT",
-      "Gestión de fuentes con Corel Font Manager",
-      "Compatibilidad con formatos industriales AI, PSD, PDF, EPS y SVG"
+      "Word, Excel, PowerPoint, Outlook, Access y Publisher",
+      "Activación rápida automatizada mediante GetCID",
+      "Sin llamadas telefónicas complejas",
+      "Licencia permanente para 1 computadora"
     ],
-    licenseType: "Suscripción o licencia perpetua según disponibilidad",
-    duration: "1 año o permanente según edición",
-    devices: "1 PC con Windows",
-    compatibility: "Windows 11 / 10 de 64 bits",
-    requirements: "Intel Core i3/5/7/9 o AMD Ryzen, 8 GB RAM, 5.5 GB espacio en disco",
-    activationMethod: "Activación mediante cuenta oficial de Corel.",
+    licenseType: "Perpetua (GetCID Asistida)",
+    duration: "De por vida",
+    devices: "1 PC",
+    compatibility: "Windows 10, Windows 11",
+    requirements: "Windows 10 / 11",
+    activationMethod: "Ingreso de Installation ID en nuestro sistema para obtener el código de confirmación al instante.",
+    pricePEN: 6.00,
+    priceUSD: 1.60,
+    oldPricePEN: 10.00,
+    oldPriceUSD: 2.70,
+    promotion: {
+      badge: "Lo Recomendable",
+      title: "Activación Rápida GetCID",
+      terms: "Ideal si eres nuevo o buscas rapidez sin llamar.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/",
+    faqs: []
+  },
+  {
+    id: "office-pro-plus-directa",
+    name: "Office Professional Plus (2019 / 2021)",
+    brand: "Microsoft",
+    category: "oficina-productividad",
+    edition: "Activación Directa en Línea (Retail)",
+    shortDescription: "Activación en línea con un solo clic. Se coloca la clave y se activa al instante por internet.",
+    fullDescription: "La forma más fácil y directa: clave digital legítima que se valida automáticamente en los servidores de Microsoft con solo hacer clic en 'Activar producto por Internet'.",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Activación 100% directa por internet sin pasos intermedios",
+      "Word, Excel, PowerPoint, Outlook, Publisher y Access",
+      "Permanente para 1 equipo",
+      "Soporte garantizado"
+    ],
+    licenseType: "Perpetua Directa (Retail en Línea)",
+    duration: "De por vida",
+    devices: "1 PC",
+    compatibility: "Windows 11, Windows 10",
+    requirements: "Internet al momento de la activación",
+    activationMethod: "Ingreso de clave directa en Configuración de Cuenta de Office.",
+    pricePEN: 20.00,
+    priceUSD: 5.40,
+    oldPricePEN: 30.00,
+    oldPriceUSD: 8.00,
+    promotion: {
+      badge: "1 Clic en Línea",
+      title: "Activación Directa",
+      terms: "Activación inmediata en servidores de Microsoft.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/",
+    faqs: []
+  },
+  {
+    id: "office-2024-pro-plus-getcid",
+    name: "Office Professional Plus 2024",
+    brand: "Microsoft",
+    category: "oficina-productividad",
+    edition: "Última Versión 2024 (GetCID Asistido)",
+    shortDescription: "La versión más nueva de Office lanzada en 2024 con la interfaz renovada Fluent Design y nuevas fórmulas.",
+    fullDescription: "Disfruta de la última versión perpetua de Office 2024 con gráficos vectoriales avanzados, nuevas funciones dinámicas en Excel y herramientas modernas en PowerPoint. Activación ultrarrápida mediante sistema GetCID.",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Última versión oficial Office 2024",
+      "Nuevas funciones avanzadas en Excel 2024 y Word 2024",
+      "Activación rápida asistida con GetCID (S/ 8)",
+      "Opción telefónica manual disponible por S/ 6"
+    ],
+    licenseType: "Perpetua (Versión 2024)",
+    duration: "De por vida",
+    devices: "1 PC",
+    compatibility: "Windows 11, Windows 10",
+    requirements: "Windows 10 / 11",
+    activationMethod: "Vía GetCID asistido o activación directa.",
+    pricePEN: 8.00,
+    priceUSD: 2.20,
+    oldPricePEN: 15.00,
+    oldPriceUSD: 4.00,
+    promotion: {
+      badge: "Nueva Versión 2024",
+      title: "Office 2024 Profesional Plus",
+      terms: "Con sistema GetCID incluido.",
+      endDate: "Disponible"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/",
+    faqs: []
+  },
+  {
+    id: "office-2021-pro-plus-bind",
+    name: "Office 2021 Pro Plus [BIND]",
+    brand: "Microsoft",
+    category: "oficina-productividad",
+    edition: "Vinculada a Cuenta de Correo Microsoft (BIND)",
+    shortDescription: "Licencia transferible de por vida que se asocia directamente a tu correo personal de Microsoft.",
+    fullDescription: "La categoría más prestigiosa de licencias Office: se asocia a setup.office.com con tu propio correo personal. Si cambias o formateas tu PC, simplemente inicias sesión en tu cuenta para reinstalar y reactivar.",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Se canjea en setup.office.com con tu correo personal",
+      "Transferible si cambias de equipo o reinstalas",
+      "Máxima seguridad y legitimidad oficial",
+      "Descarga directa desde los servidores de Microsoft"
+    ],
+    licenseType: "Perpetua BIND (Vinculada a Cuenta)",
+    duration: "De por vida (Reinstalable)",
+    devices: "1 PC Windows",
+    compatibility: "Windows 11 / 10",
+    requirements: "Cuenta Microsoft (@outlook, @hotmail, etc.)",
+    activationMethod: "Canje oficial en setup.office.com",
     pricePEN: null,
     priceUSD: null,
     oldPricePEN: null,
     oldPriceUSD: null,
     promotion: null,
     availability: "Consultar disponibilidad",
-    officialProductUrl: "https://www.coreldraw.com/es/",
+    officialProductUrl: "https://setup.office.com/",
+    faqs: []
+  },
+  {
+    id: "office-2021-home-business-mac-bind",
+    name: "Office 2021 Home & Business [Mac BIND]",
+    brand: "Microsoft",
+    category: "oficina-productividad",
+    edition: "Para Apple Mac (Vinculada al Correo)",
+    shortDescription: "Versión perpetua diseñada especialmente para Mac (macOS) vinculada a tu cuenta Microsoft.",
+    fullDescription: "Compatible con procesadores Apple Silicon (M1, M2, M3, M4) e Intel. Se asocia a tu correo de Microsoft para activar Word, Excel, PowerPoint y Outlook nativos en tu Mac.",
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Diseñado para macOS (Apple Silicon M1/M2/M3/M4 e Intel)",
+      "Word, Excel, PowerPoint y Outlook para Mac",
+      "Vinculada a correo en setup.office.com",
+      "Pago único permanente"
+    ],
+    licenseType: "Perpetua Mac (BIND)",
+    duration: "De por vida",
+    devices: "1 Mac",
+    compatibility: "macOS (versiones recientes Sonoma, Ventura, Monterey)",
+    requirements: "Cuenta Microsoft y macOS compatible",
+    activationMethod: "Canje en setup.office.com y activación con login.",
+    pricePEN: null,
+    priceUSD: null,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: null,
+    availability: "Consultar disponibilidad",
+    officialProductUrl: "https://setup.office.com/",
+    faqs: []
+  },
+  {
+    id: "office-365-generico-100gb",
+    name: "Microsoft 365 (Cuenta + 100 GB OneDrive)",
+    brand: "Microsoft",
+    category: "oficina-productividad",
+    edition: "Suscripción 1 Año (Hasta 5 Dispositivos)",
+    shortDescription: "Acceso a la nube con 100 GB de almacenamiento OneDrive y uso en hasta 5 equipos simultáneamente.",
+    fullDescription: "Accede a las aplicaciones siempre actualizadas de Office 365 con 100 GB de espacio en la nube por 1 año completo. Se entrega cuenta configurada lista para iniciar sesión en hasta 5 computadoras o dispositivos móviles.",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "100 GB de espacio en la nube OneDrive",
+      "Uso en hasta 5 dispositivos simultáneamente (PC, Mac, Tablet, Celular)",
+      "Aplicaciones Office en su versión más moderna",
+      "Duración de 1 año completo"
+    ],
+    licenseType: "Suscripción Anual (Cuenta asignada)",
+    duration: "1 Año",
+    devices: "Hasta 5 PCs / Dispositivos",
+    compatibility: "Windows, Mac, Android, iOS",
+    requirements: "Internet para descarga y login",
+    activationMethod: "Inicio de sesión con credenciales provistas y cambio de contraseña.",
+    pricePEN: 8.00,
+    priceUSD: 2.20,
+    oldPricePEN: 15.00,
+    oldPriceUSD: 4.00,
+    promotion: {
+      badge: "Súper Ahorro",
+      title: "Office 365 + 100 GB Nube",
+      terms: "Válido para 5 dispositivos por 1 año.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/es-es/microsoft-365",
+    faqs: []
+  },
+  {
+    id: "office-365-personal-1tb",
+    name: "Microsoft 365 Personal (1 TB OneDrive)",
+    brand: "Microsoft",
+    category: "oficina-productividad",
+    edition: "En tu Correo Personal (1 Año)",
+    shortDescription: "Suscripción oficial con 1 TB de almacenamiento masivo OneDrive vinculado a tu propio correo.",
+    fullDescription: "La solución oficial de Microsoft en tu propia cuenta personal. Disfruta de 1 TB (1000 GB) de almacenamiento en la nube, copias de seguridad automáticas y las apps prémium de Office.",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "1 TB (1,000 GB) de almacenamiento en OneDrive",
+      "Activación directa en tu propio correo personal",
+      "5 dispositivos en simultáneo",
+      "Soporte oficial de Microsoft"
+    ],
+    licenseType: "Suscripción Anual Personal",
+    duration: "1 Año",
+    devices: "5 Dispositivos",
+    compatibility: "Windows, macOS, iOS, Android",
+    requirements: "Correo personal Microsoft",
+    activationMethod: "Enlace o código de activación en cuenta personal.",
+    pricePEN: null,
+    priceUSD: null,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: null,
+    availability: "Consultar disponibilidad",
+    officialProductUrl: "https://www.microsoft.com/es-es/microsoft-365",
     faqs: []
   },
 
-  // --- UTILIDADES PARA PC Y SOFTWARE EMPRESARIAL ---
+  // ==========================================
+  // 3. PROJECT & VISIO PERMANENTES
+  // ==========================================
   {
-    id: "aomei-backupper-pro",
-    name: "AOMEI Backupper Pro",
-    brand: "AOMEI",
-    category: "utilidades-pc",
-    edition: "Professional Edition",
-    shortDescription: "Software confiable para copias de seguridad de Windows, clonación de discos duros y recuperación del sistema.",
-    fullDescription: "Protege los datos de tu computadora contra fallos de disco duro, virus o ataques de ransomware. Permite clonar tu disco mecánico a un SSD ultrarrápido sin reinstalar Windows ni perder ningún archivo o configuración.",
-    image: "https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&fit=crop&w=800&q=80",
+    id: "project-pro-plus-getcid",
+    name: "Microsoft Project Professional",
+    brand: "Microsoft",
+    category: "software-empresarial",
+    edition: "2016 / 2019 / 2021 (Vía GetCID)",
+    shortDescription: "La herramienta líder para gestión de proyectos, diagramas de Gantt, presupuestos y cronogramas.",
+    fullDescription: "Planifica tus proyectos empresariales, asigna recursos, supervisa avances y genera informes ejecutivos con la potencia de Microsoft Project Professional.",
+    image: "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?auto=format&fit=crop&w=800&q=80",
     features: [
-      "Copia de seguridad del sistema, discos, particiones y carpetas específicas",
-      "Clonación de disco a disco para migración sencilla a unidades SSD NVMe",
-      "Programación automática de respaldos diarios, semanales o por eventos",
-      "Creación de medios de arranque USB para rescate en caso de que Windows no inicie",
-      "Sincronización en tiempo real de archivos a discos externos o almacenamiento en red"
+      "Diagramas de Gantt interactivos y cronogramas",
+      "Gestión de recursos y análisis de costos",
+      "Activación asistida rápida con GetCID por S/ 6",
+      "Permanente para 1 PC"
     ],
-    licenseType: "Licencia de por vida (Lifetime upgrades)",
+    licenseType: "Perpetua (GetCID)",
     duration: "De por vida",
-    devices: "1 o 2 PCs",
-    compatibility: "Windows 11, 10, 8.1/8, 7",
-    requirements: "500 MHz procesador, 256 MB RAM, 300 MB espacio en disco",
-    activationMethod: "Activación mediante clave de registro oficial en el software instalado.",
-    pricePEN: 89.00,
-    priceUSD: 24.00,
-    oldPricePEN: null,
-    oldPriceUSD: null,
-    promotion: null,
-    availability: "Disponible",
-    officialProductUrl: "https://www.ubackup.com/es/professional.html",
-    faqs: [
-      {
-        question: "¿Puedo migrar mi Windows de un HDD a un SSD?",
-        answer: "Sí, es una de sus funciones principales: clona el sistema tal cual sin necesidad de reinstalar programas ni controladores."
-      }
-    ]
-  },
-  {
-    id: "easeus-partition-master",
-    name: "EaseUS Partition Master Pro",
-    brand: "EaseUS",
-    category: "utilidades-pc",
-    edition: "Professional",
-    shortDescription: "Administrador integral de particiones de disco, optimización de espacio y conversión de discos MBR a GPT.",
-    fullDescription: "La herramienta líder para redimensionar particiones de disco sin pérdida de datos, extender la unidad C cuando se queda sin espacio, y convertir tablas de partición MBR a GPT para cumplir con los requisitos de Windows 11.",
-    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
-    features: [
-      "Redimensionamiento, movimiento y fusión de particiones sin pérdida de archivos",
-      "Conversión MBR a GPT sin formatear para compatibilidad con UEFI",
-      "Clonación de partición de sistema y asignación inteligente de espacio",
-      "Limpieza de archivos basura y optimización de velocidad de lectura de discos",
-      "Herramienta de creación de USB de arranque WinPE"
-    ],
-    licenseType: "Licencia oficial",
-    duration: "1 año o de por vida según elección",
     devices: "1 PC",
-    compatibility: "Windows 11/10/8/7",
-    requirements: "CPU 500 MHz, 512 MB RAM, 100 MB espacio",
-    activationMethod: "Registro de código de activación en la barra de menús del programa.",
-    pricePEN: 75.00,
-    priceUSD: 20.00,
+    compatibility: "Windows 11 / 10",
+    requirements: "Windows 10 u 11",
+    activationMethod: "Sistema rápido GetCID.",
+    pricePEN: 6.00,
+    priceUSD: 1.60,
     oldPricePEN: null,
     oldPriceUSD: null,
     promotion: null,
     availability: "Disponible",
-    officialProductUrl: "https://es.easeus.com/partition-manager/",
+    officialProductUrl: "https://www.microsoft.com/es-es/microsoft-365/project",
     faqs: []
   },
   {
-    id: "windows-server-standard",
-    name: "Windows Server Standard",
+    id: "project-pro-plus-2024-directa",
+    name: "Microsoft Project Professional 2024",
     brand: "Microsoft",
     category: "software-empresarial",
-    edition: "2022 / 2025 Standard (16 Cores)",
-    shortDescription: "Sistema operativo para servidores corporativos, virtualización ligera y gestión de infraestructura de red.",
-    fullDescription: "Conecta entornos locales con servicios en la nube híbrida de Azure, agregando capas adicionales de seguridad y ayudando a modernizar tus aplicaciones e infraestructura informática.",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
+    edition: "Versión 2024 (Activación Directa)",
+    shortDescription: "La edición 2024 más reciente con activación directa en línea con un solo clic.",
+    fullDescription: "La versión más avanzada y actualizada de Project Professional con plantillas modernas y sincronización avanzada. Disponible con GetCID por S/ 12 o Activación Directa por S/ 25.",
+    image: "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?auto=format&fit=crop&w=800&q=80",
     features: [
-      "Seguridad multicapa avanzada con servidor con núcleo protegido",
-      "Compatibilidad para contenedores de Windows y Kubernetes",
-      "Gestión simplificada a través de Windows Admin Center",
-      "Soporte para virtualización con hasta 2 entornos operativos aislados (Oщением)",
-      "Capacidades de almacenamiento híbrido con Azure Arc"
+      "Edición más reciente 2024",
+      "Activación directa por internet (S/ 25)",
+      "Opción GetCID asistido disponible (S/ 12)",
+      "Permanente para 1 equipo"
     ],
-    licenseType: "Digital ESD Core Licensing",
-    duration: "Perpetua para el servidor configurado",
-    devices: "1 Servidor físico (Licencia base de 16 núcleos)",
-    compatibility: "Hardware certificado para Windows Server",
-    requirements: "Procesador de 64 bits a 1.4 GHz, 2 GB RAM con ECC, 32 GB espacio en disco",
-    activationMethod: "Activación telefónica o mediante clave de producto oficial en servidor.",
-    pricePEN: null,
-    priceUSD: null,
+    licenseType: "Perpetua Directa",
+    duration: "De por vida",
+    devices: "1 PC",
+    compatibility: "Windows 11 / 10",
+    requirements: "Windows 10/11",
+    activationMethod: "Activación directa en línea.",
+    pricePEN: 25.00,
+    priceUSD: 6.80,
     oldPricePEN: null,
     oldPriceUSD: null,
     promotion: null,
-    availability: "Bajo pedido / Consultar",
-    officialProductUrl: "https://www.microsoft.com/es-es/windows-server",
-    faqs: [
-      {
-        question: "¿Incluye licencias de acceso de cliente (CALs)?",
-        answer: "Las CALs de usuario o dispositivo se cotizan por separado según el número de clientes que accederán a los servicios del servidor."
-      }
-    ]
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/",
+    faqs: []
   },
   {
-    id: "visual-studio-professional",
-    name: "Visual Studio Professional",
+    id: "visio-pro-plus-getcid",
+    name: "Microsoft Visio Professional",
     brand: "Microsoft",
-    category: "otras-licencias",
-    edition: "Professional Edition",
-    shortDescription: "Entorno de desarrollo integrado (IDE) completo para desarrolladores de aplicaciones modernas web, móviles y de escritorio.",
-    fullDescription: "Potencia tu productividad de programación con un IDE robusto, depuración avanzada de código, herramientas de pruebas unitarias y colaboración en equipo fluida para .NET, C++, Python, JavaScript y TypeScript.",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+    category: "oficina-productividad",
+    edition: "2016 / 2019 / 2021 (1 PC)",
+    shortDescription: "Creación profesional de diagramas de flujo, planos arquitectónicos, organigramas y esquemas de red.",
+    fullDescription: "Transforma datos complejos en diagramas visuales y profesionales con miles de plantillas integradas compatibles con estándares UML, BPMN e ingeniería.",
+    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=80",
     features: [
-      "Editor de código de última generación con IntelliSense y sugerencias por IA",
-      "Depurador y creador de perfiles de rendimiento multiplataforma",
-      "Integración nativa con repositorios Git y GitHub",
-      "Diseñador de interfaz para Windows Presentation Foundation (WPF) y MAUI",
-      "Herramientas de pruebas y diagnóstico de errores en tiempo de compilación"
+      "Miles de formas y plantillas para diagramas de red y arquitectura",
+      "Compatibilidad con AutoCAD y vinculación de datos en tiempo real",
+      "Licencia permanente para 1 PC",
+      "Activación asistida rápida"
     ],
-    licenseType: "Licencia digital comercial",
-    duration: "Suscripción o licencia perpetua según requerimiento",
-    devices: "1 Desarrollador",
-    compatibility: "Windows 11 / 10 de 64 bits",
-    requirements: "Procesador de 1.8 GHz de cuatro núcleos, 8 GB RAM, disco SSD recomendado",
-    activationMethod: "Vinculación de cuenta de desarrollador o clave de producto.",
+    licenseType: "Perpetua",
+    duration: "De por vida",
+    devices: "1 PC",
+    compatibility: "Windows 11 / 10",
+    requirements: "Windows 10/11",
+    activationMethod: "Activación rápida con código de confirmación.",
+    pricePEN: 8.00,
+    priceUSD: 2.20,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: null,
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/es-es/microsoft-365/visio",
+    faqs: []
+  },
+  {
+    id: "visio-pro-plus-2024-directa",
+    name: "Microsoft Visio Professional 2024",
+    brand: "Microsoft",
+    category: "oficina-productividad",
+    edition: "Versión 2024 (Activación Directa)",
+    shortDescription: "Última versión 2024 de Visio con soporte directo en línea.",
+    fullDescription: "La suite de diagramación técnica más moderna de Microsoft. Disponible con activación asistida GetCID por S/ 12 o Activación Directa por S/ 25.",
+    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Nueva versión 2024 con interfaz moderna",
+      "Activación directa por internet (S/ 25)",
+      "Opción asistida GetCID (S/ 12)",
+      "Licencia permanente de por vida"
+    ],
+    licenseType: "Perpetua Directa",
+    duration: "De por vida",
+    devices: "1 PC",
+    compatibility: "Windows 11 / 10",
+    requirements: "Windows 10/11",
+    activationMethod: "Activación directa en línea.",
+    pricePEN: 25.00,
+    priceUSD: 6.80,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: null,
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/",
+    faqs: []
+  },
+
+  // ==========================================
+  // 4. SISTEMAS OPERATIVOS WINDOWS PERMANENTES
+  // ==========================================
+  {
+    id: "windows-10-11-pro-getcid",
+    name: "Windows 10 / 11 Pro",
+    brand: "Microsoft",
+    category: "sistemas-operativos",
+    edition: "Retail Vía GetCID (Recomendado)",
+    shortDescription: "La opción más recomendada para activar Windows 10 u 11 Pro de forma rápida y permanente.",
+    fullDescription: "Desbloquea todas las funciones profesionales de Windows 11 o 10 Pro: cifrado BitLocker, conexión por Escritorio Remoto nativo, Hyper-V y políticas de seguridad avanzadas. Activación asistida por nuestro sistema GetCID en 1 minuto.",
+    image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Válido tanto para Windows 10 Pro como para Windows 11 Pro",
+      "Cifrado de disco BitLocker y Escritorio Remoto",
+      "Activación asistida con GetCID (S/ 6)",
+      "Opción telefónica manual disponible desde S/ 4 (a partir de 2 unidades)"
+    ],
+    licenseType: "Perpetua Retail (Vía GetCID)",
+    duration: "De por vida en la placa del equipo",
+    devices: "1 PC",
+    compatibility: "Windows 10 Pro / Windows 11 Pro",
+    requirements: "PC compatible con Windows",
+    activationMethod: "Activación asistida rápida mediante nuestro sistema GetCID.",
+    pricePEN: 6.00,
+    priceUSD: 1.60,
+    oldPricePEN: 12.00,
+    oldPriceUSD: 3.20,
+    promotion: {
+      badge: "Lo Más Vendido",
+      title: "Activación Windows 10/11 Pro",
+      terms: "Permanente de por vida para 1 PC.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/es-es/windows/windows-11-pro",
+    faqs: []
+  },
+  {
+    id: "windows-10-11-pro-directa-retail",
+    name: "Windows 10 / 11 Pro (Directa Retail)",
+    brand: "Microsoft",
+    category: "sistemas-operativos",
+    edition: "Activación Directa en Línea (Retail)",
+    shortDescription: "Activación digital 100% directa en línea sin códigos intermedios. Se coloca la clave y queda activado.",
+    fullDescription: "Clave digital Retail original de 25 caracteres para Windows 10 u 11 Pro. Ingresas a Configuración > Sistema > Activación, colocas la clave y el sistema valida en línea en los servidores de Microsoft de inmediato.",
+    image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Activación directa por internet con 1 clic",
+      "Reconocimiento oficial en servidores de Microsoft",
+      "Licencia permanente Retail",
+      "Actualizaciones continuas garantizadas"
+    ],
+    licenseType: "Perpetua Retail Directa",
+    duration: "De por vida",
+    devices: "1 PC",
+    compatibility: "Windows 11 Pro / Windows 10 Pro",
+    requirements: "Conexión a internet al momento de activar",
+    activationMethod: "Ingreso directo en menú Activación de Windows.",
+    pricePEN: 11.00,
+    priceUSD: 3.00,
+    oldPricePEN: 18.00,
+    oldPriceUSD: 4.80,
+    promotion: {
+      badge: "Activación Directa",
+      title: "Clave en Línea",
+      terms: "Activación instantánea por internet.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/",
+    faqs: []
+  },
+  {
+    id: "windows-10-11-pro-directa-oem",
+    name: "Windows 10 / 11 Pro (OEM Directa)",
+    brand: "Microsoft",
+    category: "sistemas-operativos",
+    edition: "Licencia Digital OEM (En Línea)",
+    shortDescription: "Licencia de tipo OEM vinculada permanentemente a la placa madre de la computadora.",
+    fullDescription: "Licencia digital tipo OEM que se asocia a los identificadores de hardware de tu placa base. Permite formatear y reinstalar Windows tantas veces como desees sin perder la activación.",
+    image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Activación directa OEM en línea",
+      "Reinstalable de por vida en la misma placa madre",
+      "Para equipos armados o computadoras nuevas"
+    ],
+    licenseType: "Perpetua OEM Directa",
+    duration: "De por vida (en la placa)",
+    devices: "1 PC",
+    compatibility: "Windows 11 Pro / Windows 10 Pro",
+    requirements: "Placa madre compatible",
+    activationMethod: "Activación directa en línea.",
+    pricePEN: 14.00,
+    priceUSD: 3.80,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: null,
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/",
+    faqs: []
+  },
+  {
+    id: "windows-10-11-home-oem",
+    name: "Windows 10 / 11 Home (OEM Directa)",
+    brand: "Microsoft",
+    category: "sistemas-operativos",
+    edition: "Activación Directa OEM",
+    shortDescription: "Sistema operativo ágil y seguro optimizado para el hogar, estudiantes y videojuegos.",
+    fullDescription: "Licencia digital oficial OEM para Windows 10 u 11 Home. Activación directa en línea de por vida.",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Válido para Windows 10 Home y Windows 11 Home",
+      "Activación directa OEM por internet",
+      "Licencia permanente de por vida"
+    ],
+    licenseType: "Perpetua OEM",
+    duration: "De por vida",
+    devices: "1 PC",
+    compatibility: "Windows 10 / 11 Home",
+    requirements: "PC compatible",
+    activationMethod: "Activación directa en línea.",
+    pricePEN: 14.00,
+    priceUSD: 3.80,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: null,
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/",
+    faqs: []
+  },
+  {
+    id: "windows-server-2012-2022",
+    name: "Windows Server (2012 R2 / 2016 / 2019 / 2022)",
+    brand: "Microsoft",
+    category: "software-empresarial",
+    edition: "Standard / Datacenter (1 PC / Servidor)",
+    shortDescription: "Sistema operativo corporativo para servidores físicos o máquinas virtuales de red.",
+    fullDescription: "Licencia permanente para entornos de servidores corporativos en versiones 2012 R2, 2016, 2019 o 2022 en sus ediciones Standard o Datacenter.",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Disponible en Standard o Datacenter",
+      "Compatible con versiones 2012 R2, 2016, 2019 y 2022",
+      "Licencia permanente para 1 servidor"
+    ],
+    licenseType: "Perpetua Servidor",
+    duration: "De por vida",
+    devices: "1 Servidor",
+    compatibility: "Hardware certificado para Windows Server",
+    requirements: "Servidor 64-bit",
+    activationMethod: "Activación en línea o telefónica oficial.",
+    pricePEN: 13.00,
+    priceUSD: 3.50,
+    oldPricePEN: 20.00,
+    oldPriceUSD: 5.50,
+    promotion: {
+      badge: "Empresas",
+      title: "Windows Server Standard/Datacenter",
+      terms: "Ediciones 2012 R2 a 2022.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/es-es/windows-server",
+    faqs: []
+  },
+  {
+    id: "windows-server-2025",
+    name: "Windows Server 2025",
+    brand: "Microsoft",
+    category: "software-empresarial",
+    edition: "Standard / Datacenter 2025 (1 PC / Servidor)",
+    shortDescription: "La versión más avanzada y reciente de Windows Server con seguridad híbrida en Azure.",
+    fullDescription: "La última generación de Windows Server 2025 con capacidades mejoradas de nube híbrida, rendimiento ultraveloz en almacenamiento NVMe y protección avanzada de núcleo.",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Versión más moderna 2025",
+      "Ediciones Standard o Datacenter",
+      "Seguridad de núcleo protegido de nueva generación"
+    ],
+    licenseType: "Perpetua Servidor 2025",
+    duration: "De por vida",
+    devices: "1 Servidor",
+    compatibility: "Servidores modernos",
+    requirements: "Hardware 64-bit",
+    activationMethod: "Activación digital oficial.",
+    pricePEN: 18.00,
+    priceUSD: 4.90,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: {
+      badge: "Nueva Versión 2025",
+      title: "Server 2025 Standard/Datacenter",
+      terms: "Licencia permanente para servidor.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.microsoft.com/es-es/windows-server",
+    faqs: []
+  },
+
+  // ==========================================
+  // 5. AUTODESK SUITE (ARQUITECTURA & INGENIERÍA)
+  // ==========================================
+  {
+    id: "autodesk-suite-1y",
+    name: "Autodesk Suite Completa (1 Año)",
+    brand: "Autodesk",
+    category: "diseno-edicion",
+    edition: "Suite Completa (AutoCAD, Revit, 3ds Max, Maya, Civil 3D)",
+    shortDescription: "Acceso integral a toda la colección de ingeniería, arquitectura y diseño 3D por 1 año.",
+    fullDescription: "Accede a las aplicaciones líderes de la industria como AutoCAD, Revit, Civil 3D, Inventor, 3ds Max y Maya en sus versiones oficiales descargables directamente desde el portal oficial de Autodesk.",
+    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Incluye AutoCAD, Revit, Civil 3D, 3ds Max, Maya, Inventor y más",
+      "Acceso oficial por 1 año completo (S/ 10)",
+      "Opción de 2 años por S/ 19 y 3 años por S/ 25",
+      "Descarga directa desde los servidores oficiales de Autodesk"
+    ],
+    licenseType: "Suscripción Digital Oficial",
+    duration: "1 Año (Opciones para 2 y 3 años)",
+    devices: "Multidispositivo según cuenta",
+    compatibility: "Windows 11 / 10 y macOS (según aplicación)",
+    requirements: "Conexión a internet y PC con tarjeta gráfica recomendada",
+    activationMethod: "Activación directa en cuenta Autodesk autorizada.",
+    pricePEN: 10.00,
+    priceUSD: 2.70,
+    oldPricePEN: 20.00,
+    oldPriceUSD: 5.50,
+    promotion: {
+      badge: "Súper Oferta",
+      title: "Toda la Suite Autodesk por 1 Año",
+      terms: "AutoCAD, Revit, 3ds Max y más.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.autodesk.com/es",
+    faqs: []
+  },
+  {
+    id: "autodesk-suite-3y",
+    name: "Autodesk Suite Completa (3 Años)",
+    brand: "Autodesk",
+    category: "diseno-edicion",
+    edition: "Suite Completa por 3 Años Continuos",
+    shortDescription: "El plan más económico para estudiantes, arquitectos e ingenieros por 3 años ininterrumpidos.",
+    fullDescription: "Garantiza 3 años completos de acceso a todas las herramientas de Autodesk sin preocuparte por renovaciones anuales.",
+    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "3 años continuos de acceso oficial",
+      "AutoCAD, Civil 3D, Revit, Navisworks, Inventor",
+      "Ahorro máximo a largo plazo"
+    ],
+    licenseType: "Suscripción Digital (3 Años)",
+    duration: "3 Años Continuos",
+    devices: "Multidispositivo",
+    compatibility: "Windows / macOS",
+    requirements: "Internet",
+    activationMethod: "Activación mediante cuenta Autodesk.",
+    pricePEN: 25.00,
+    priceUSD: 6.80,
+    oldPricePEN: 40.00,
+    oldPriceUSD: 11.00,
+    promotion: {
+      badge: "Ahorro Máximo 3 Años",
+      title: "Plan Trienal Completo",
+      terms: "Acceso a todo el ecosistema Autodesk.",
+      endDate: "Válido"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.autodesk.com/es",
+    faqs: []
+  },
+
+  // ==========================================
+  // 6. DISEÑO, HERRAMIENTAS PDF Y MULTIMEDIA
+  // ==========================================
+  {
+    id: "canva-pro-1y",
+    name: "Canva Pro",
+    brand: "Canva",
+    category: "diseno-edicion",
+    edition: "Pro Oficial (1 Año)",
+    shortDescription: "Diseño gráfico profesional ilimitado: millones de fotos, vídeos, fuentes y removedor de fondos.",
+    fullDescription: "Desbloquea todas las funciones prémium de Canva en tu propia cuenta: quitador de fondos con 1 clic, kit de marcas, animaciones prémium, almacenamiento ilimitado y descarga en formatos de alta calidad.",
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Removedor de fondos de imágenes y vídeos con 1 clic",
+      "Acceso ilimitado a más de 100 millones de fotos, vídeos y elementos prémium",
+      "Kit de marcas con paletas y tipografías personalizadas",
+      "Opción de 1 año por S/ 3.50 o 3 años por S/ 8.00"
+    ],
+    licenseType: "Suscripción Pro Oficial",
+    duration: "1 Año (o 3 años por S/ 8)",
+    devices: "Cualquier dispositivo (PC, Móvil, Tablet)",
+    compatibility: "Web, Windows, macOS, Android, iOS",
+    requirements: "Acceso web o app de Canva",
+    activationMethod: "Invitación oficial directa a tu correo de Canva.",
+    pricePEN: 3.50,
+    priceUSD: 1.00,
+    oldPricePEN: 7.00,
+    oldPriceUSD: 2.00,
+    promotion: {
+      badge: "Imperdible",
+      title: "Canva Pro por 1 Año",
+      terms: "Disponible también plan de 3 años por S/ 8.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.canva.com/es_419/pro/",
+    faqs: []
+  },
+  {
+    id: "adobe-acrobat-dc-permanente",
+    name: "Adobe Acrobat Pro DC (Permanente)",
+    brand: "Adobe",
+    category: "herramientas-pdf",
+    edition: "2019 / 2020 DC Permanente (1 PC)",
+    shortDescription: "El software estándar para editar, convertir, firmar y comprimir documentos PDF de por vida.",
+    fullDescription: "La suite de PDF definitiva en versión de pago único permanente sin suscripciones mensuales. Permite editar textos e imágenes dentro del PDF, convertir a Word/Excel y realizar OCR con reconocimiento de texto.",
+    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Edición completa de texto e imágenes en archivos PDF",
+      "Conversión a Word, Excel y PowerPoint sin alterar formato",
+      "OCR de alta precisión para digitalizar documentos físicos",
+      "Licencia permanente de por vida para 1 PC"
+    ],
+    licenseType: "Perpetua (Sin suscripción)",
+    duration: "De por vida",
+    devices: "1 PC",
+    compatibility: "Windows 11 / 10 / 8.1 / 7",
+    requirements: "Windows PC",
+    activationMethod: "Activación permanente incluida.",
+    pricePEN: 13.00,
+    priceUSD: 3.50,
+    oldPricePEN: 25.00,
+    oldPriceUSD: 6.80,
+    promotion: {
+      badge: "Pago Único",
+      title: "Adobe Acrobat DC Permanente",
+      terms: "Sin mensualidades ni pagos recurrentes.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.adobe.com/es/acrobat/acrobat-pro.html",
+    faqs: []
+  },
+  {
+    id: "nitro-pdf-pro-permanente",
+    name: "Nitro PDF Pro",
+    brand: "Nitro",
+    category: "herramientas-pdf",
+    edition: "Versión 10 y Versión 14 Última (Permanente)",
+    shortDescription: "La alternativa potente y fluida a Adobe Acrobat con interfaz similar a Microsoft Office.",
+    fullDescription: "Crea, edita, firma y combina documentos PDF con extrema velocidad. Versión 10 disponible por S/ 8 y Nitro PDF 14 última versión por S/ 15 de por vida.",
+    image: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Edición visual de texto y sustitución de páginas",
+      "Conversión veloz por lotes a Word y Excel",
+      "Firma electrónica y protección por contraseña",
+      "Permanente de por vida sin mensualidades"
+    ],
+    licenseType: "Perpetua",
+    duration: "De por vida",
+    devices: "1 PC",
+    compatibility: "Windows 11 / 10 / 8.1",
+    requirements: "Windows",
+    activationMethod: "Activación oficial permanente.",
+    pricePEN: 15.00,
+    priceUSD: 4.00,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: {
+      badge: "Herramienta PDF",
+      title: "Nitro PDF 14 Última Versión",
+      terms: "O versión 10 por S/ 8.",
+      endDate: "Vigente"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.gonitro.com/es",
+    faqs: []
+  },
+  {
+    id: "flexipdf-permanente",
+    name: "FlexiPDF",
+    brand: "SoftMaker",
+    category: "herramientas-pdf",
+    edition: "Permanente para 3 PCs",
+    shortDescription: "Edita PDFs tan fácilmente como si fuera un procesador de texto en hasta 3 computadoras.",
+    fullDescription: "Excelente herramienta de edición de PDFs que trata los párrafos de texto de manera fluida, incluye corrector ortográfico y funciona en hasta 3 equipos con una sola licencia.",
+    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Edición fluida de texto en columnas",
+      "Licencia permanente para hasta 3 PCs",
+      "Traducción de páginas enteras y OCR"
+    ],
+    licenseType: "Perpetua (3 PCs)",
+    duration: "De por vida",
+    devices: "3 PCs",
+    compatibility: "Windows 11 / 10",
+    requirements: "Windows",
+    activationMethod: "Clave de licencia oficial.",
+    pricePEN: 10.00,
+    priceUSD: 2.70,
+    oldPricePEN: null,
+    oldPriceUSD: null,
+    promotion: null,
+    availability: "Disponible",
+    officialProductUrl: "https://www.softmaker.com/es/flexipdf",
+    faqs: []
+  },
+  {
+    id: "capcut-pro-privada",
+    name: "CapCut Pro (Cuenta Privada)",
+    brand: "ByteDance",
+    category: "diseno-edicion",
+    edition: "Cuenta Privada Completa (1 Mes / 3 Dispositivos)",
+    shortDescription: "Edición de video con IA: subtítulos automáticos, efectos virales y exportación 4K.",
+    fullDescription: "Cuenta privada completa (no compartida) para usar en 3 dispositivos simultáneos: PC, celular o tablet. Accede a subtítulos automáticos multilingües, voz en off con IA, transiciones exclusivas y eliminación de fondos de video.",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Subtítulos automáticos inteligentes con IA",
+      "Eliminación de fondo de video con 1 clic",
+      "Uso en hasta 3 dispositivos en simultáneo",
+      "Cuenta 100% privada"
+    ],
+    licenseType: "Suscripción Privada",
+    duration: "1 Mes (Renovable)",
+    devices: "Hasta 3 Dispositivos (PC / Móvil)",
+    compatibility: "Windows, macOS, Android, iOS",
+    requirements: "App CapCut",
+    activationMethod: "Entrega de credenciales de cuenta privada.",
+    pricePEN: 11.00,
+    priceUSD: 3.00,
+    oldPricePEN: 18.00,
+    oldPriceUSD: 4.80,
+    promotion: {
+      badge: "Viral para Creadores",
+      title: "Cuenta Privada 3 Dispositivos",
+      terms: "100% privada sin compartir perfiles.",
+      endDate: "Válido"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.capcut.com/",
+    faqs: []
+  },
+  {
+    id: "coreldraw-technical-suite-permanente",
+    name: "CorelDRAW Technical & Graphics Suite",
+    brand: "Corel / Alludo",
+    category: "diseno-edicion",
+    edition: "2019 / 2022 / 2024 / 2025 / 2026 (Permanente)",
+    shortDescription: "La suite definitiva de diseño vectorial, maquetación, rotulación e ilustración técnica.",
+    fullDescription: "Herramienta estándar para diseñadores gráficos, agencias de publicidad y talleres de imprenta. Versiones 2019 a 2024 permanente para Windows por S/ 12, versiones 2025 y 2026 por S/ 14, y versión nativa para Mac por S/ 24.",
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Ilustración vectorial avanzada y trazado de mapas de bits",
+      "Corel PHOTO-PAINT para retoque fotográfico incluido",
+      "Corel Font Manager para gestión de tipografías",
+      "Versión Windows (S/ 12 - S/ 14) y versión macOS (S/ 24)"
+    ],
+    licenseType: "Perpetua (Sin suscripción)",
+    duration: "De por vida",
+    devices: "1 PC / Mac según elección",
+    compatibility: "Windows 11 / 10 o macOS",
+    requirements: "Requisitos de sistema CorelDRAW",
+    activationMethod: "Activación permanente incluida.",
+    pricePEN: 12.00,
+    priceUSD: 3.20,
+    oldPricePEN: 25.00,
+    oldPriceUSD: 6.80,
+    promotion: {
+      badge: "Diseñadores e Imprentas",
+      title: "CorelDRAW Permanente",
+      terms: "Versiones 2019 a 2026 disponibles.",
+      endDate: "Válido"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://www.coreldraw.com/es/",
+    faqs: []
+  },
+  {
+    id: "gemini-pro-18-meses",
+    name: "Gemini Pro (Inteligencia Artificial)",
+    brand: "Google",
+    category: "otras-licencias",
+    edition: "Suscripción Premium (18 Meses)",
+    shortDescription: "El modelo avanzado de IA de Google con capacidad multimodal, análisis de código y documentos extensos.",
+    fullDescription: "Accede a la potencia de Gemini Pro por 18 meses continuos: redacta textos, analiza código informático, procesa hojas de cálculo extensas y potencia tu productividad al máximo.",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "18 meses ininterrumpidos de servicio",
+      "Razonamiento complejo y análisis de imágenes y documentos",
+      "Asistencia avanzada para programación y redacción",
+      "Súper precio de lanzamiento"
+    ],
+    licenseType: "Suscripción Digital (18 Meses)",
+    duration: "18 Meses Continuos",
+    devices: "Multidispositivo",
+    compatibility: "Web, Móvil, PC",
+    requirements: "Navegador web",
+    activationMethod: "Activación oficial provista.",
+    pricePEN: 15.00,
+    priceUSD: 4.00,
+    oldPricePEN: 30.00,
+    oldPriceUSD: 8.00,
+    promotion: {
+      badge: "Súper Promoción IA",
+      title: "18 Meses de Inteligencia Artificial",
+      terms: "Acceso garantizado a Gemini Pro.",
+      endDate: "Hasta agotar cupos"
+    },
+    availability: "Disponible",
+    officialProductUrl: "https://gemini.google.com/",
+    faqs: []
+  },
+  {
+    id: "filmora-permanente",
+    name: "Wondershare Filmora",
+    brand: "Wondershare",
+    category: "diseno-edicion",
+    edition: "Filmora 13 / 14 Permanente + 2K Créditos IA",
+    shortDescription: "Editor de video intuitivo y profesional con efectos, transiciones y créditos de inteligencia artificial.",
+    fullDescription: "Crea contenido para YouTube, TikTok y redes sociales de manera ágil con pantalla verde, seguimiento de movimiento y herramientas de audio inteligentes.",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Versión 13 o 14 permanente",
+      "Incluye 2,000 créditos de IA",
+      "Efectos visuales y música libre de derechos"
+    ],
+    licenseType: "Perpetua",
+    duration: "De por vida",
+    devices: "1 PC",
+    compatibility: "Windows 11 / 10",
+    requirements: "Tarjeta gráfica recomendada",
+    activationMethod: "Activación permanente incluida.",
     pricePEN: null,
     priceUSD: null,
     oldPricePEN: null,
     oldPriceUSD: null,
     promotion: null,
     availability: "Consultar disponibilidad",
-    officialProductUrl: "https://visualstudio.microsoft.com/es/vs/professional/",
+    officialProductUrl: "https://filmora.wondershare.es/",
     faqs: []
   }
 ];
@@ -585,30 +1383,26 @@ export const PRODUCTS = [
 export const GENERAL_FAQS = [
   {
     question: "¿Cómo recibo mi licencia después de comprar?",
-    answer: "Una vez verificado el pago, la entrega de tu licencia digital (clave de activación o enlace de suscripción oficial) se realiza de forma inmediata o en pocos minutos a través de WhatsApp o correo electrónico, acompañada de instrucciones detalladas de descarga e instalación paso a paso."
+    answer: "Una vez confirmado el comprobante de pago, la entrega de tu licencia o credenciales se efectúa inmediatamente a través de WhatsApp o correo electrónico, acompañada de instrucciones paso a paso para la activación."
   },
   {
-    question: "¿Qué diferencia existe entre una licencia perpetua y una suscripción?",
-    answer: "Una licencia perpetua (pago único) te permite utilizar esa versión específica del software de manera indefinida sin pagos recurrentes. Una suscripción (mensual o anual) te da acceso continuo a las versiones más actualizadas, almacenamiento en la nube y soporte activo mientras la membresía se encuentre vigente."
+    question: "¿Qué garantía tienen los antivirus y productos de 1 año?",
+    answer: "Garantizamos formalmente que las licencias anuales de antivirus (ESET, McAfee, Kaspersky, Avast) se entregan con un período no menor a 360 días de vigencia activa continua."
   },
   {
-    question: "¿En cuántos dispositivos puedo utilizar el producto?",
-    answer: "Depende de las condiciones de cada producto. Por ejemplo, licencias estándar de Windows o Office ESD están autorizadas para 1 PC o Mac; mientras que suites familiares o de seguridad como Bitdefender o Microsoft 365 admiten de 3 a 5 dispositivos en simultáneo. Toda la información está claramente descrita en la ficha de cada producto."
+    question: "¿Qué diferencia hay entre la activación telefónica manual y GetCID en Office / Windows?",
+    answer: "La activación telefónica manual (S/ 4) requiere que llames al número de Microsoft para dictar los números de instalación y recibir el código de confirmación. Con el método GetCID (S/ 6), nuestro sistema automatizado consulta los servidores y te entrega el código al instante sin llamadas telefónicas. Es la opción más recomendada."
   },
   {
-    question: "¿Cómo se activa el software?",
-    answer: "Todas las activaciones se realizan a través de los canales oficiales de cada fabricante: ya sea ingresando la clave alfanumérica dentro del menú de configuración del software original previamente descargado, o vinculando el código directamente a tu cuenta oficial (por ejemplo en el portal de Microsoft, ESET HOME o Norton)."
+    question: "¿Qué significa que una licencia sea [BIND] vinculada al correo?",
+    answer: "Una licencia BIND se canjea directamente en el portal oficial del fabricante (como setup.office.com) utilizando tu propia cuenta de correo personal. La ventaja es que la licencia queda para siempre ligada a tu cuenta y podrás transferirla o reinstalarla cuando cambies de computadora."
   },
   {
-    question: "¿Qué sucede si necesito ayuda durante la activación?",
-    answer: "Brindamos asesoría y soporte técnico personalizado a través de WhatsApp para guiarte en el proceso de descarga, instalación y activación hasta que tu software quede 100% operativo y validado en los servidores oficiales."
+    question: "¿Cómo funciona la activación directa de Windows y Office?",
+    answer: "Es la forma más simple: abres tu Windows o tu programa Office, colocas la clave de 25 caracteres y se activa automáticamente por internet en los servidores oficiales de Microsoft en un solo clic."
   },
   {
-    question: "¿Puedo comprar desde otro país fuera de Perú?",
-    answer: "Sí. Ofrecemos cotización y soporte en Dólares Estadounidenses (USD) para clientes internacionales. Al ser productos 100% digitales, la entrega se realiza por canales electrónicos sin demoras de aduana ni costos de flete físico."
-  },
-  {
-    question: "¿Qué métodos de pago están disponibles?",
-    answer: "Para Perú aceptamos transferencias bancarias directas (BCP, BBVA, Interbank), Yape, Plin y transferencias interbancarias. Para clientes internacionales coordinamos opciones digitales o pasarelas autorizadas vía WhatsApp."
+    question: "¿Qué métodos de pago aceptan?",
+    answer: "Aceptamos pagos directos por Yape, Plin y transferencias bancarias a los principales bancos del Perú (BCP, BBVA, Interbank). Para clientes en el extranjero aceptamos pagos en Dólares (USD) a través de medios digitales coordinados vía WhatsApp."
   }
 ];
