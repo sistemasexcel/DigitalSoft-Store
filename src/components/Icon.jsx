@@ -163,6 +163,32 @@ export default function Icon({ name, size = 20, className = '', color = 'current
           <line x1="12" x2="12.01" y1="17" y2="17" />
         </svg>
       );
+    case 'shopping-cart':
+      return (
+        <svg {...props}>
+          <circle cx="8" cy="21" r="1" />
+          <circle cx="19" cy="21" r="1" />
+          <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+        </svg>
+      );
+    case 'trash':
+      return (
+        <svg {...props}>
+          <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2M10 11v6M14 11v6" />
+        </svg>
+      );
+    case 'plus':
+      return (
+        <svg {...props}>
+          <path d="M5 12h14M12 5v14" />
+        </svg>
+      );
+    case 'minus':
+      return (
+        <svg {...props}>
+          <path d="M5 12h14" />
+        </svg>
+      );
     default:
       return (
         <svg {...props}>

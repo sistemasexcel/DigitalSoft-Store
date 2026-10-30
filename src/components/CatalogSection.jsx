@@ -10,10 +10,12 @@ export default function CatalogSection({
   onSelectCategory,
   searchTerm,
   onSearchChange,
-  onSelectProduct 
+  onSelectProduct,
+  onAddToCart,
+  cartItemIds = new Set()
 }) {
   const [selectedBrand, setSelectedBrand] = useState('all');
-  const [sortOption, setSortOption] = useState('featured'); // 'featured', 'price-asc', 'price-desc', 'name'
+  const [sortOption, setSortOption] = useState('featured');
   const [onlyPromos, setOnlyPromos] = useState(false);
 
   // Obtener lista única de fabricantes para el filtro
@@ -28,14 +30,17 @@ export default function CatalogSection({
   // Filtrado y ordenamiento en tiempo real
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
-      // Filtro por término de búsqueda (nombre, edición, descripción o marca)
-      if (searchTerm.trim() !== '') {
-        const query = searchTerm.toLowerCase();
-        const matchName = product.name.toLowerCase().includes(query);
-        const matchBrand = product.brand.toLowerCase().includes(query);
-        const matchEdition = product.edition?.toLowerCase().includes(query);
-        const matchDesc = product.shortDescription?.toLowerCase().includes(query);
-        if (!matchName && !matchBrand && !matchEdition && !matchDesc) {
+      // Filtro por término de búsqueda (nombre, edición, descripción, tags o marca)
+      if (searchTerm && searchTerm.trim() !== '') {
+        const query = searchTerm.toLowerCase().trim();
+        const matchName = (product.name || '').toLowerCase().includes(query);
+        const matchBrand = (product.brand || '').toLowerCase().includes(query);
+        const matchEdition = (product.edition || '').toLowerCase().includes(query);
+        const matchDesc = (product.shortDescription || '').toLowerCase().includes(query);
+        const matchCategory = (product.category || '').toLowerCase().includes(query);
+        const matchFeatures = (product.features || []).some(f => f.toLowerCase().includes(query));
+
+        if (!matchName && !matchBrand && !matchEdition && !matchDesc && !matchCategory && !matchFeatures) {
           return false;
         }
       }
@@ -61,7 +66,6 @@ export default function CatalogSection({
       const priceB = currency === 'PEN' ? b.pricePEN : b.priceUSD;
 
       if (sortOption === 'price-asc') {
-        // Enviar nulos al final
         if (priceA === null) return 1;
         if (priceB === null) return -1;
         return priceA - priceB;
@@ -74,10 +78,10 @@ export default function CatalogSection({
       }
 
       if (sortOption === 'name') {
-        return a.name.localeCompare(b.name);
+        return (a.name || '').localeCompare(b.name || '');
       }
 
-      // 'featured': Promociones primero y orden natural
+      // 'featured': Promociones primero
       if (a.promotion && !b.promotion) return -1;
       if (!a.promotion && b.promotion) return 1;
       return 0;
@@ -99,7 +103,8 @@ export default function CatalogSection({
                 : activeCategoryObj?.name || 'Productos Filtrados'}
             </h2>
             <p className="catalog-count-text">
-              Mostrando <strong>{filteredProducts.length}</strong> de {products.length} licencias digitales
+              Mostrando <strong>{filteredProducts.length}</strong> de {products.length} licencias disponibles
+              {searchTerm && <span> para "{searchTerm}"</span>}
             </p>
           </div>
 
@@ -120,8 +125,30 @@ export default function CatalogSection({
           </div>
         </div>
 
-        {/* Barra de Filtros */}
+        {/* Barra de Filtros y Buscador Integrado */}
         <div className="catalog-filters-bar">
+          {/* Buscador dentro del catálogo */}
+          <div className="catalog-inline-search-wrap">
+            <Icon name="search" size={18} className="inline-search-icon" />
+            <input
+              type="text"
+              placeholder="Buscar en el catálogo (ej: Windows, Office 2024, ESET, Canva, AutoCAD)..."
+              value={searchTerm}
+              onChange={(e) => onSearchChange(e.target.value)}
+              className="catalog-inline-search-input"
+            />
+            {searchTerm && (
+              <button 
+                type="button" 
+                className="catalog-search-clear"
+                onClick={() => onSearchChange('')}
+                title="Borrar búsqueda"
+              >
+                <Icon name="x" size={16} />
+              </button>
+            )}
+          </div>
+
           {/* Filtro por Categoría en pestañas rápidas */}
           <div className="category-chips-scroll">
             <button
@@ -129,48 +156,49 @@ export default function CatalogSection({
               className={`chip-btn ${selectedCategory === 'all' ? 'active' : ''}`}
               onClick={() => onSelectCategory('all')}
             >
-              Todas
+              Todas las licencias ({products.length})
             </button>
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                type="button"
-                className={`chip-btn ${selectedCategory === cat.id ? 'active' : ''}`}
-                onClick={() => onSelectCategory(cat.id)}
-              >
-                {cat.shortName || cat.name}
-              </button>
-            ))}
+            {CATEGORIES.map((cat) => {
+              const catCount = products.filter(p => p.category === cat.id).length;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  className={`chip-btn ${selectedCategory === cat.id ? 'active' : ''}`}
+                  onClick={() => onSelectCategory(cat.id)}
+                >
+                  {cat.name} ({catCount})
+                </button>
+              );
+            })}
           </div>
 
-          <div className="filter-controls-row">
-            {/* Filtro por Fabricante */}
+          {/* Filtros secundarios: Fabricante y Promos */}
+          <div className="catalog-secondary-filters">
             <div className="filter-select-wrapper">
-              <span className="filter-mini-label">Fabricante:</span>
+              <span className="filter-mini-label">Marca / Desarrollador:</span>
               <select
                 value={selectedBrand}
                 onChange={(e) => setSelectedBrand(e.target.value)}
                 className="filter-select"
               >
-                <option value="all">Todos los fabricantes</option>
+                <option value="all">Todas las marcas</option>
                 {brandsList.map((brand) => (
                   <option key={brand} value={brand}>{brand}</option>
                 ))}
               </select>
             </div>
 
-            {/* Checkbox solo ofertas */}
             <label className="filter-checkbox-label">
               <input
                 type="checkbox"
                 checked={onlyPromos}
                 onChange={(e) => setOnlyPromos(e.target.checked)}
               />
-              <span>Sólo promociones activas</span>
+              <span>Sólo ofertas y promociones</span>
             </label>
 
-            {/* Botón reset si hay filtros activos */}
-            {(selectedCategory !== 'all' || selectedBrand !== 'all' || onlyPromos || searchTerm !== '') && (
+            {(selectedCategory !== 'all' || selectedBrand !== 'all' || onlyPromos || (searchTerm && searchTerm.trim() !== '')) && (
               <button
                 type="button"
                 className="btn-reset-filters"
@@ -182,57 +210,60 @@ export default function CatalogSection({
                 }}
               >
                 <Icon name="x" size={14} />
-                <span>Limpiar filtros</span>
+                <span>Restablecer filtros</span>
               </button>
             )}
           </div>
         </div>
 
-        {/* Cuadrícula de Productos */}
+        {/* Cuadrícula Homogénea de Productos (Exactamente idéntica a las ofertas de arriba) */}
         {filteredProducts.length > 0 ? (
-          <div className="products-grid">
+          <div className="catalog-grid">
             {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                currency={currency}
-                onSelectProduct={onSelectProduct}
-              />
+              <div key={product.id} className="offer-item-wrap">
+                {product.promotion ? (
+                  <div className="offer-terms-strip">
+                    <Icon name="tag" size={14} />
+                    <span>{product.promotion.badge || product.promotion.title}: {product.promotion.terms}</span>
+                  </div>
+                ) : (
+                  <div className="standard-item-strip">
+                    <Icon name="shield-check" size={14} color="#10b981" />
+                    <span>Licencia Original Verificada</span>
+                  </div>
+                )}
+                <ProductCard
+                  product={product}
+                  currency={currency}
+                  onSelectProduct={onSelectProduct}
+                  onAddToCart={onAddToCart}
+                  isInCart={cartItemIds.has(product.id)}
+                />
+              </div>
             ))}
           </div>
         ) : (
           /* Estado sin resultados */
-          <div className="no-results-box">
-            <div className="no-results-icon">
-              <Icon name="search" size={42} color="#94a3b8" />
+          <div className="empty-catalog-state">
+            <div className="empty-state-icon">
+              <Icon name="search" size={36} />
             </div>
-            <h3 className="no-results-title">No encontramos software con esos criterios</h3>
-            <p className="no-results-desc">
-              Prueba buscando con otro término, limpiando los filtros o consultando directamente por el producto que necesitas.
+            <h3 className="empty-state-title">No se encontraron productos</h3>
+            <p className="empty-state-text">
+              No hay licencias que coincidan con <strong>"{searchTerm}"</strong>. Intenta con otro término o limpia los filtros para ver todo.
             </p>
-            <div className="no-results-actions">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => {
-                  onSelectCategory('all');
-                  setSelectedBrand('all');
-                  setOnlyPromos(false);
-                  onSearchChange('');
-                }}
-              >
-                Ver todo el catálogo
-              </button>
-              <a
-                href={`https://api.whatsapp.com/send?phone=51987654321&text=Hola,%20busco%20un%20software%20que%20no%20encuentro%20en%20el%20catálogo:%20${encodeURIComponent(searchTerm)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-whatsapp"
-              >
-                <Icon name="whatsapp" size={18} />
-                <span>Consultar por WhatsApp</span>
-              </a>
-            </div>
+            <button
+              type="button"
+              className="btn btn-primary btn-sm"
+              onClick={() => {
+                onSelectCategory('all');
+                setSelectedBrand('all');
+                setOnlyPromos(false);
+                onSearchChange('');
+              }}
+            >
+              Restablecer catálogo
+            </button>
           </div>
         )}
       </div>

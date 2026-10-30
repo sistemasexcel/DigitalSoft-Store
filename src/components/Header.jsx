@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Icon from './Icon';
 import { STORE_CONFIG } from '../data/config';
 import { buildWhatsAppUrl } from '../utils/formatters';
@@ -7,18 +7,49 @@ export default function Header({
   currency, 
   onCurrencyChange, 
   searchTerm, 
-  onSearchChange,
-  activeView,
-  onNavigate
+  onSearchChange, 
+  activeView, 
+  onNavigate,
+  cartCount = 0,
+  onOpenCart
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchInputRef = useRef(null);
+  const searchContainerRef = useRef(null);
   const generalWhatsAppUrl = buildWhatsAppUrl(null, currency, 'general');
+
+  // Enfocar el input cuando se abre el buscador
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
+
+  // Si hacen clic fuera y el input está vacío, cerrar el buscador
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        searchContainerRef.current && 
+        !searchContainerRef.current.contains(event.target) &&
+        !searchTerm
+      ) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    if (isSearchOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSearchOpen, searchTerm]);
 
   const navItems = [
     { id: 'inicio', label: 'Inicio' },
-    { id: 'catalogo', label: 'Catálogo' },
-    { id: 'categorias', label: 'Categorías' },
-    { id: 'ofertas', label: 'Ofertas' },
+    { id: 'catalogo', label: 'Catálogo de Software' },
+    { id: 'ofertas', label: 'Ofertas del Mes' },
     { id: 'faqs', label: 'Preguntas Frecuentes' },
     { id: 'contacto', label: 'Contacto' },
   ];
@@ -28,6 +59,18 @@ export default function Header({
     setMobileMenuOpen(false);
   };
 
+  const toggleSearch = () => {
+    if (isSearchOpen && !searchTerm) {
+      setIsSearchOpen(false);
+    } else {
+      setIsSearchOpen(true);
+      // Si estamos en otra vista que no sea catálogo o inicio, ir a catálogo para ver resultados
+      if (activeView !== 'catalogo' && activeView !== 'inicio') {
+        onNavigate('catalogo');
+      }
+    }
+  };
+
   return (
     <header className="site-header">
       {/* Top Bar informativa */}
@@ -35,7 +78,7 @@ export default function Header({
         <div className="container top-bar-container">
           <div className="top-bar-info">
             <span className="info-item">
-              <Icon name="shield-check" size={15} color="#10b981" /> Licencias 100% legítimas y garantizadas
+              <Icon name="shield-check" size={15} color="#10b981" /> Licencias 100% verificadas y garantizadas
             </span>
             <span className="info-separator">•</span>
             <span className="info-item">
@@ -82,29 +125,6 @@ export default function Header({
             </div>
           </div>
 
-          {/* Buscador de productos */}
-          <div className="header-search">
-            <div className="search-input-wrapper">
-              <Icon name="search" size={18} className="search-icon" />
-              <input
-                type="text"
-                placeholder="Buscar software, Windows, Office, antivirus..."
-                value={searchTerm}
-                onChange={(e) => onSearchChange(e.target.value)}
-                className="search-input"
-              />
-              {searchTerm && (
-                <button 
-                  className="search-clear-btn"
-                  onClick={() => onSearchChange('')}
-                  title="Limpiar búsqueda"
-                >
-                  <Icon name="x" size={14} />
-                </button>
-              )}
-            </div>
-          </div>
-
           {/* Menú de Navegación de Escritorio */}
           <nav className="desktop-nav">
             {navItems.map((item) => (
@@ -118,8 +138,61 @@ export default function Header({
             ))}
           </nav>
 
-          {/* Botón WhatsApp de Acción Rápida */}
+          {/* Botones de Cabecera: Buscador Popup/Expandible + Carrito + WhatsApp */}
           <div className="header-cta-group">
+            {/* Buscador Desplegable con Lupa */}
+            <div className={`header-search-collapsible ${isSearchOpen ? 'open' : ''}`} ref={searchContainerRef}>
+              <button
+                type="button"
+                className={`btn-search-toggle ${isSearchOpen ? 'active' : ''}`}
+                onClick={toggleSearch}
+                title={isSearchOpen ? 'Cerrar buscador' : 'Buscar software'}
+                aria-label="Buscar software"
+              >
+                <Icon name={isSearchOpen && !searchTerm ? 'x' : 'search'} size={19} />
+                <span className="search-btn-label">Buscar</span>
+              </button>
+
+              <div className="search-expandable-box">
+                <Icon name="search" size={17} className="expandable-search-icon" />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Buscar Windows, Office, antivirus, diseño..."
+                  value={searchTerm}
+                  onChange={(e) => onSearchChange(e.target.value)}
+                  className="search-input"
+                />
+                {searchTerm && (
+                  <button 
+                    type="button"
+                    className="search-clear-btn"
+                    onClick={() => {
+                      onSearchChange('');
+                      searchInputRef.current?.focus();
+                    }}
+                    title="Limpiar búsqueda"
+                  >
+                    <Icon name="x" size={14} />
+                  </button>
+                )}
+              </div>
+            </div>
+            {/* BOTÓN DEL CARRITO DE COMPRAS */}
+            <button 
+              type="button"
+              className="btn btn-header-cart"
+              onClick={onOpenCart}
+              title="Ver mi carrito de compras"
+              aria-label="Carrito de compras"
+            >
+              <Icon name="shopping-cart" size={20} />
+              <span className="header-cart-label">Carrito</span>
+              {cartCount > 0 && (
+                <span className="header-cart-badge">{cartCount}</span>
+              )}
+            </button>
+
             <a 
               href={generalWhatsAppUrl} 
               target="_blank" 
@@ -128,7 +201,7 @@ export default function Header({
               title="Iniciar consulta en WhatsApp"
             >
               <Icon name="whatsapp" size={18} />
-              <span>Consultar por WhatsApp</span>
+              <span>WhatsApp</span>
             </a>
 
             {/* Hamburguesa móvil */}
@@ -143,61 +216,29 @@ export default function Header({
         </div>
       </div>
 
-      {/* Menú Desplegable Móvil */}
+      {/* Menú Móvil Desplegable */}
       {mobileMenuOpen && (
-        <div className="mobile-drawer">
-          <div className="container mobile-drawer-content">
-            <div className="mobile-search-box">
-              <Icon name="search" size={18} />
-              <input
-                type="text"
-                placeholder="Buscar licencias..."
-                value={searchTerm}
-                onChange={(e) => onSearchChange(e.target.value)}
-              />
-            </div>
-
-            <div className="mobile-nav-list">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`mobile-nav-item ${activeView === item.id ? 'active' : ''}`}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="mobile-drawer-footer">
-              <div className="mobile-currency-row">
-                <span>Moneda:</span>
-                <div className="currency-selector">
-                  <button 
-                    className={`currency-btn ${currency === 'PEN' ? 'active' : ''}`}
-                    onClick={() => onCurrencyChange('PEN')}
-                  >
-                    PEN (S/)
-                  </button>
-                  <button 
-                    className={`currency-btn ${currency === 'USD' ? 'active' : ''}`}
-                    onClick={() => onCurrencyChange('USD')}
-                  >
-                    USD ($)
-                  </button>
-                </div>
-              </div>
-
-              <a 
-                href={generalWhatsAppUrl} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="btn btn-whatsapp btn-block"
+        <div className="mobile-nav-drawer">
+          <div className="mobile-nav-links">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleNavClick(item.id)}
+                className={`mobile-nav-link ${activeView === item.id ? 'active' : ''}`}
               >
-                <Icon name="whatsapp" size={20} />
-                <span>Atención en WhatsApp</span>
-              </a>
-            </div>
+                {item.label}
+              </button>
+            ))}
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenCart();
+              }}
+              className="mobile-nav-link mobile-cart-link"
+            >
+              <Icon name="shopping-cart" size={18} />
+              <span>Ver Carrito ({cartCount})</span>
+            </button>
           </div>
         </div>
       )}

@@ -1,12 +1,13 @@
 import React from 'react';
 import Icon from './Icon';
 import ProductCard from './ProductCard';
-import { STORE_CONFIG } from '../data/config';
 
 export default function OffersSection({ 
   products, 
   currency, 
-  onSelectProduct 
+  onSelectProduct,
+  onAddToCart,
+  cartItemIds = new Set()
 }) {
   // Filtrar únicamente productos que tengan oferta real configurada
   const offerProducts = products.filter(
@@ -43,6 +44,8 @@ export default function OffersSection({
                 product={product}
                 currency={currency}
                 onSelectProduct={onSelectProduct}
+                onAddToCart={onAddToCart}
+                isInCart={cartItemIds.has(product.id)}
               />
             </div>
           ))}
