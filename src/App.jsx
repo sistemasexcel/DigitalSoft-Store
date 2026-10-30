@@ -3,14 +3,13 @@ import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import CatalogSection from './components/CatalogSection';
 import OffersSection from './components/OffersSection';
-import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
 import ProductDetailModal from './components/ProductDetailModal';
 import CartDrawer from './components/CartDrawer';
 import Icon from './components/Icon';
 
 import { STORE_CONFIG } from './data/config';
-import { PRODUCTS, GENERAL_FAQS } from './data/products';
+import { PRODUCTS } from './data/products';
 import { buildWhatsAppUrl } from './utils/formatters';
 
 import './App.css';
@@ -205,12 +204,9 @@ export default function App() {
           onAddToCart={handleAddToCart}
           cartItemIds={cartItemIds}
         />
-
-        {/* 5. Preguntas Frecuentes Desplegables */}
-        <FaqSection faqs={GENERAL_FAQS} />
       </main>
 
-      {/* 6. Pie de Página */}
+      {/* 5. Pie de Página */}
       <Footer
         onSelectCategory={handleSelectCategory}
         onNavigate={handleNavigate}

@@ -9,36 +9,61 @@ export default function Footer({ onSelectCategory, onNavigate }) {
   return (
     <footer id="contacto" className="site-footer">
       <div className="container">
-        {/* Bloque superior del footer */}
-        <div className="footer-top-grid">
+        {/* Banner de soporte directo / contacto rápido */}
+        <div className="footer-support-banner">
+          <div className="support-banner-content">
+            <div className="support-banner-icon">
+              <Icon name="whatsapp" size={32} color="#ffffff" />
+            </div>
+            <div className="support-banner-text">
+              <h3 className="support-banner-title">¿Tienes dudas o buscas una licencia especial?</h3>
+              <p className="support-banner-sub">
+                Atendemos al instante por WhatsApp para resolver tus preguntas, asesorarte y asistirte en la activación.
+              </p>
+            </div>
+          </div>
+          <a 
+            href={generalWhatsAppUrl} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="btn btn-footer-support-wa"
+          >
+            <Icon name="whatsapp" size={20} />
+            <span>Chatear con un asesor</span>
+          </a>
+        </div>
+
+        {/* Bloque principal del footer */}
+        <div className="footer-main-grid">
           {/* Columna 1: Marca y descripción */}
           <div className="footer-col brand-col">
-            <div className="footer-logo">
-              <div className="logo-badge">
+            <div className="footer-brand-header">
+              <div className="brand-logo-pill">
                 <Icon name="cpu" size={22} color="#ffffff" />
               </div>
               <span className="footer-brand-title">{STORE_CONFIG.storeName}</span>
             </div>
             <p className="footer-description">
-              {STORE_CONFIG.shortDescription}
+              Tu tienda online de confianza especializada en licencias oficiales, sistemas operativos, suites de oficina y antivirus permanentes con entrega digital garantizada.
             </p>
-            <div className="footer-contact-items">
-              <div className="footer-contact-row">
-                <Icon name="whatsapp" size={16} color="#25d366" />
-                <span>Atención directa: <strong>{STORE_CONFIG.whatsappDisplay}</strong></span>
-              </div>
-              <div className="footer-contact-row">
-                <Icon name="clock" size={16} />
-                <span>{STORE_CONFIG.schedule}</span>
-              </div>
+            
+            <div className="footer-badges-strip">
+              <span className="footer-mini-badge">
+                <Icon name="shield-check" size={14} color="#10b981" /> Garantía oficial
+              </span>
+              <span className="footer-mini-badge">
+                <Icon name="zap" size={14} color="#38bdf8" /> Entrega inmediata
+              </span>
             </div>
           </div>
 
           {/* Columna 2: Categorías de productos */}
           <div className="footer-col">
-            <h4 className="footer-col-title">Categorías</h4>
+            <h4 className="footer-col-title">
+              <Icon name="grid" size={16} /> Software Destacado
+            </h4>
             <ul className="footer-links-list">
-              {CATEGORIES.slice(0, 6).map((cat) => (
+              {CATEGORIES.slice(0, 5).map((cat) => (
                 <li key={cat.id}>
                   <button 
                     type="button" 
@@ -48,80 +73,96 @@ export default function Footer({ onSelectCategory, onNavigate }) {
                       onNavigate('catalogo');
                     }}
                   >
-                    {cat.name}
+                    <Icon name="chevron-right" size={13} className="link-arrow" />
+                    <span>{cat.name}</span>
                   </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Columna 3: Navegación e información */}
+          {/* Columna 3: Enlaces de navegación */}
           <div className="footer-col">
-            <h4 className="footer-col-title">Información</h4>
+            <h4 className="footer-col-title">
+              <Icon name="compass" size={16} /> Navegación
+            </h4>
             <ul className="footer-links-list">
               <li>
                 <button type="button" className="footer-link-btn" onClick={() => onNavigate('inicio')}>
-                  Inicio
+                  <Icon name="chevron-right" size={13} className="link-arrow" />
+                  <span>Página de Inicio</span>
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-link-btn" onClick={() => onNavigate('catalogo')}>
-                  Catálogo Completo
+                  <Icon name="chevron-right" size={13} className="link-arrow" />
+                  <span>Catálogo de Programas</span>
                 </button>
               </li>
               <li>
                 <button type="button" className="footer-link-btn" onClick={() => onNavigate('ofertas')}>
-                  Promociones del Mes
-                </button>
-              </li>
-              <li>
-                <button type="button" className="footer-link-btn" onClick={() => onNavigate('faqs')}>
-                  Preguntas Frecuentes
+                  <Icon name="chevron-right" size={13} className="link-arrow" />
+                  <span>Promociones del Mes</span>
                 </button>
               </li>
               <li>
                 <a href={generalWhatsAppUrl} target="_blank" rel="noopener noreferrer" className="footer-link-btn">
-                  Atención por WhatsApp
+                  <Icon name="chevron-right" size={13} className="link-arrow" />
+                  <span>Contacto Directo</span>
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Columna 4: Garantías y Transparencia */}
-          <div className="footer-col">
-            <h4 className="footer-col-title">Garantía y Entrega</h4>
-            <div className="footer-guarantee-card">
-              <div className="guarantee-mini-item">
-                <Icon name="shield-check" size={18} color="#10b981" />
-                <span><strong>Licencias Legítimas:</strong> Activación en servidores oficiales del fabricante.</span>
+          {/* Columna 4: Medios de atención */}
+          <div className="footer-col contact-col">
+            <h4 className="footer-col-title">
+              <Icon name="message-square" size={16} /> Contacto y Atención
+            </h4>
+            
+            <div className="footer-contact-card">
+              <div className="contact-card-item">
+                <div className="contact-icon-wrap wa-color">
+                  <Icon name="whatsapp" size={18} />
+                </div>
+                <div>
+                  <span className="contact-item-label">WhatsApp Directo</span>
+                  <a href={generalWhatsAppUrl} target="_blank" rel="noopener noreferrer" className="contact-item-value highlight">
+                    {STORE_CONFIG.whatsappDisplay}
+                  </a>
+                </div>
               </div>
-              <div className="guarantee-mini-item">
-                <Icon name="clock" size={18} color="#2563eb" />
-                <span><strong>Entrega Rápida:</strong> Canje digital sin costos ni demoras físicas.</span>
-              </div>
-              <div className="guarantee-mini-item">
-                <Icon name="lock" size={18} color="#7c3aed" />
-                <span><strong>Soporte Técnico:</strong> Acompañamiento en la activación de cada producto.</span>
+
+              <div className="contact-card-item">
+                <div className="contact-icon-wrap">
+                  <Icon name="clock" size={18} />
+                </div>
+                <div>
+                  <span className="contact-item-label">Horario de Soporte</span>
+                  <span className="contact-item-value">{STORE_CONFIG.schedule}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Separador */}
-        <div className="footer-divider"></div>
+        {/* Separador con degradado */}
+        <div className="footer-gradient-divider"></div>
 
-        {/* Aviso Legal de Marcas y Responsabilidad */}
-        <div className="footer-legal-notice">
+        {/* Aviso Legal de Marcas */}
+        <div className="footer-legal-box">
+          <Icon name="info" size={16} className="legal-icon" />
           <p>{STORE_CONFIG.legalNotice}</p>
         </div>
 
-        {/* Barra inferior */}
+        {/* Barra inferior de créditos */}
         <div className="footer-bottom-bar">
-          <p>© {new Date().getFullYear()} {STORE_CONFIG.storeName}. Todos los derechos reservados.</p>
-          <div className="footer-bottom-links">
-            <span className="legal-tag">Términos del Servicio</span>
-            <span className="legal-tag">Política de Privacidad</span>
-            <span className="legal-tag">Políticas de Garantía</span>
+          <p className="copyright-text">
+            © {new Date().getFullYear()} <strong>{STORE_CONFIG.storeName}</strong>. Licencias Digitales Oficiales y Seguras.
+          </p>
+          <div className="footer-bottom-badges">
+            <span className="bottom-pill">Pago 100% Seguro</span>
+            <span className="bottom-pill">Soporte Remoto Garantizado</span>
           </div>
         </div>
       </div>

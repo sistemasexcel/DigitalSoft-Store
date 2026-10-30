@@ -50,7 +50,6 @@ export default function Header({
     { id: 'inicio', label: 'Inicio' },
     { id: 'catalogo', label: 'Catálogo de Software' },
     { id: 'ofertas', label: 'Ofertas del Mes' },
-    { id: 'faqs', label: 'Preguntas Frecuentes' },
     { id: 'contacto', label: 'Contacto' },
   ];
 
