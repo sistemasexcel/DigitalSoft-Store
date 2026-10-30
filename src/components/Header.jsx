@@ -86,24 +86,16 @@ export default function Header({
           </div>
 
           <div className="top-bar-actions">
-            {/* Selector de Moneda PEN / USD */}
-            <div className="currency-selector" title="Seleccionar moneda del catálogo">
+            {/* Indicador de Moneda oficial PEN (S/) */}
+            <div className="currency-selector" title="Moneda oficial del catálogo: Soles Peruanos">
               <span className="currency-label">Moneda:</span>
               <button 
-                className={`currency-btn ${currency === 'PEN' ? 'active' : ''}`}
-                onClick={() => onCurrencyChange('PEN')}
+                className="currency-btn active"
+                onClick={() => onCurrencyChange && onCurrencyChange('PEN')}
                 type="button"
                 aria-label="Moneda Soles Peruanos"
               >
                 PEN (S/)
-              </button>
-              <button 
-                className={`currency-btn ${currency === 'USD' ? 'active' : ''}`}
-                onClick={() => onCurrencyChange('USD')}
-                type="button"
-                aria-label="Moneda Dólares Estadounidenses"
-              >
-                USD ($)
               </button>
             </div>
           </div>
