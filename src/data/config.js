@@ -9,8 +9,8 @@ export const STORE_CONFIG = {
   shortDescription: "Tu catálogo confiable de software digital, licencias originales y herramientas de productividad para profesionales y empresas.",
   
   // Canales de contacto
-  whatsappNumber: "+51987654321", // Reemplazar con el número de teléfono con código de país
-  whatsappDisplay: "+51 987 654 321",
+  whatsappNumber: "+51931212564", // Número de WhatsApp oficial
+  whatsappDisplay: "+51 931 212 564",
   emailContact: "contacto@digitalsoftstore.com",
   schedule: "Lunes a Sábado: 8:00 AM - 8:00 PM (Hora Perú - GMT-5)",
   location: "Lima, Perú — Envíos digitales a todo el mundo",
